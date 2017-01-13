@@ -89,6 +89,6 @@
       </div>
     </div>
   </section>
-  <script async type="text/javascript" src="../js/bulma.js"></script>
+  <script async type="text/javascript" src="{{ asset('js/embed.js') }}"></script>
 </body>
 </html>

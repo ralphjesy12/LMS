@@ -5,6 +5,28 @@
     <title>Learning Management System for Kaunlaran Elementary School Grade 1 Students</title>
 </head>
 <body style="margin:0px;padding:0px;overflow:hidden">
-    <iframe src="http://lms.jciimuswagayway.org/" frameborder="0" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="100%" width="100%"></iframe>
+    <script id="lms-jci-embed-js">
+    var dmStockTradeID = document.getElementById('lms-jci-embed');
+    var thisScript = document.getElementById('lms-jci-embed-js');
+    var parent = thisScript.parentElement;
+    var z = document.createElement('iframe');
+    z.setAttribute('id','lms-jci-embed');
+    z.setAttribute('src','http://lms.jciimuswagayway.org');
+    z.setAttribute('style','overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px');
+    z.setAttribute('frameborder','0');
+    z.setAttribute('allowtransparency','true');
+    z.setAttribute('scrolling','no');
+    parent.appendChild(z);
+    var dmStockTradeID = document.getElementById('lms-jci-embed');
+    dmStockTradeID.addEventListener("load",function(){
+        var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+        var eventer = window[eventMethod];
+        var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+        eventer(messageEvent, function(e) {
+            if (isNaN(e.data)) return;
+            dmStockTradeID.style.height = e.data + 'px';
+        }, false);
+    });
+    </script>
 </body>
 </html>
