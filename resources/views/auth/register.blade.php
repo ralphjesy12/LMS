@@ -50,8 +50,6 @@
                     <a href="{{ url('login') }}">Already have an account?</a>
                     |
                     <a href="{{ url('/password/reset') }}">Forgot password</a>
-                    |
-                    <a href="#">Need help?</a>
                 </p>
             </div>
         </div>

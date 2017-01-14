@@ -21,3 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+Route::get('/teacher/login', 'TeacherController@login');
+Route::get('/teacher/home', 'TeacherController@index');

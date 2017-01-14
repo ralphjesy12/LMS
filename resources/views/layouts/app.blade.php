@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Landing - Free Bulma template</title>
+    <title>Learning Management System - Kaunlaran Elementary School</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bulma.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/lms.css') }}">
@@ -94,9 +94,8 @@
             <div class="container">
                 <div class="tabs is-centered">
                     <ul>
-                        <li><a class="text-white" href="http://bulma.io">Made with bulma</a></li>
-                        <li><a class="text-white">Copyright 2016 Bulma</a></li>
-                        <li><a class="text-white" href="http://unsplash.com">Images via unsplash</a></li>
+                        <li><a class="text-white">Copyright 2016 &copy; Kaunlaran</a></li>
+                        <li><a class="text-white" href="{{ url('teacher/login') }}">Instructor</a></li>
                     </ul>
                 </div>
             </div>

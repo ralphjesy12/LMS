@@ -4,8 +4,20 @@
     <div class="container">
         <div class="columns is-vcentered">
             <div class="column is-4 is-offset-4">
-                <h1 class="title">
-                    Login
+                <h1 class="title text-white">
+                    <?php
+                    if(isset($level)):
+                        echo [
+                            0 => '',
+                            1 => 'Student',
+                            2 => 'Teacher',
+                            3 => 'Parent',
+                            4 => 'Principal',
+                        ][$level];
+                    else:
+                        echo 'Student';
+                    endif;
+                    ?> Login
                 </h1>
                 <form class="box content" role="form" method="POST" action="{{ url('/login') }}">
                     {{ csrf_field() }}
@@ -30,6 +42,10 @@
                             Remember me
                         </label>
                     </p>
+
+                    <?php if(isset($level)): ?>
+                        <input type="hidden" name="level" value="{{ $level }}"/>
+                    <?php endif; ?>
                     <hr>
                     <p class="control">
                         <button class="button is-primary" type="submit">Login</button>
@@ -40,8 +56,6 @@
                     <a href="{{ url('register') }}">Register an Account</a>
                     |
                     <a href="{{ url('/password/reset') }}">Forgot password</a>
-                    |
-                    <a href="#">Need help?</a>
                 </p>
             </div>
         </div>
