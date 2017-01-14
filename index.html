@@ -24,7 +24,7 @@
         var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
         eventer(messageEvent, function(e) {
             if (isNaN(e.data)) return;
-            dmStockTradeID.style.height = e.data + 'px';
+            // dmStockTradeID.style.height = e.data + 'px';
         }, false);
     });
     </script>
