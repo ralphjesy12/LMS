@@ -5,6 +5,8 @@ use App\Permission;
 use App\Role;
 use App\User;
 
+use Faker\Factory as Faker;
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -12,8 +14,10 @@ class UsersTableSeeder extends Seeder
     *
     * @return void
     */
-    public function run(Faker\Generator $faker)
+    public function run()
     {
+        $faker = Faker::create();
+
         Permission::truncate();
         Role::truncate();
         User::truncate();
