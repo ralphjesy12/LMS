@@ -12,5 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    if (Auth::check()) {
+         return redirect()->intended('home');
+    }
+    return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
