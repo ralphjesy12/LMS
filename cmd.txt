@@ -1,0 +1,7 @@
+php artisan make:model Subject --migration
+php artisan make:model Lesson --migration
+php artisan make:model Quiz --migration
+php artisan make:model Exam --migration
+php artisan make:model Video --migration
+php artisan make:model Question --migration
+php artisan make:model Choice --migration
