@@ -37,7 +37,7 @@
                     </p>
                 </form>
                 <p class="has-text-centered">
-                    <a href="register.html">Register an Account</a>
+                    <a href="{{ url('register') }}">Register an Account</a>
                     |
                     <a href="{{ url('/password/reset') }}">Forgot password</a>
                     |
