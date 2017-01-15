@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Permission;
 use App\Role;
 use App\User;
+use App\Subject;
 
 use Faker\Factory as Faker;
 
@@ -103,6 +104,30 @@ class UsersTableSeeder extends Seeder
         $teacher->attachRole($teacherRole);
         $parent->attachRole($parentRole);
         $principal->attachRole($principalRole);
+
+        // SUBJECT FACTORY
+
+        foreach ([
+            'Science',
+            'Filipino',
+            'English',
+            'Mathematics',
+            'Araling Panlipunan',
+            'Edukasyon sa Pagpapakatao',
+            'Music',
+            'Arts',
+            'Physical Education',
+            'Health',
+            'Edukasyong Pantahanan at Pangkabuhayan',
+            'Technology and Livelihood Education'
+        ]
+        as $subject) {
+            factory(App\Subject::class)->create([
+                'title' => $subject
+            ]);
+        }
+
+
 
     }
 }

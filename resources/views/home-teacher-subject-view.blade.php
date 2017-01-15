@@ -14,7 +14,7 @@
                     <div class="card-content">
                         <div class="content">
                             <p class="title">{{ $subject->title }}</p>
-                            <p>{{ $subject->description }}</p>
+                            <p class="text-pre">{{ $subject->description }}</p>
                             <div class="control is-grouped">
                                 <p class="control">
                                     <a href="{{ url('home/subject/edit/'.session('subject')) }}" class="button is-primary">Edit Subject</a>

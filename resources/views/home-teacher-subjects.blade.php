@@ -45,7 +45,7 @@
                 <div class="column is-3">
                     <div class="card">
                         <header class="card-header">
-                            <p class="card-header-title">
+                            <p class="card-header-title min-height-65">
                                 {{ $subject->title }}
                             </p>
                             <a class="card-header-icon">
@@ -57,7 +57,7 @@
                         <div class="card-content">
                             <div class="content">
                                 <p class="min-height-100">
-                                    {{ str_limit($subject->description,50) }}
+                                    {{ str_limit($subject->description,100) }}
                                 </p>
                                 <small>Last updated {{ $subject->updated_at->diffForHumans() }}</small>
                             </div>
