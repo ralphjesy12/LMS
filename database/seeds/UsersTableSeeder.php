@@ -127,8 +127,6 @@ class UsersTableSeeder extends Seeder
                 'title' => $subject
             ]);
 
-
-
             for ($i=0; $i < $data['count']; $i++) {
                 factory(App\Lesson::class)->create([
                     'subject_id' => $s,

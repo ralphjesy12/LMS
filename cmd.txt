@@ -10,3 +10,5 @@ php artisan make:model Choice --migration
 php artisan make:controller SubjectController --resource
 php artisan migrate:refresh --seed
 mysqldump -u root -p lms > dump.sql
+
+php artisan make:controller LessonController --resource

@@ -29,8 +29,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-
-
 Route::resource('subjects', 'SubjectController',
 [
     'only' => [
@@ -40,6 +38,13 @@ Route::resource('subjects', 'SubjectController',
     'names' => [
         'store' => 'subject.store'
     ]
+]);
+
+Route::resource('lesson', 'LessonController',
+[
+    'only' => [
+        'show',
+    ],
 ]);
 
 Route::get('/subject/{id}/lessons','SubjectController@indexLessons');

@@ -45,7 +45,7 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <strong>{{ $lesson->title }}</strong> <small style="float:right;">{{ $lesson->updated_at->diffForHumans() }}</small>
+                                        <a href="{{ url('lesson/'.$lesson->id) }}"><strong>{{ $lesson->title }}</strong></a> <small style="float:right;">{{ $lesson->updated_at->diffForHumans() }}</small>
                                         <br>
                                         {{ str_limit($lesson->description,200) }}
                                     </p>
