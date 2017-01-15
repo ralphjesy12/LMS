@@ -29,13 +29,13 @@
                 <div class="tile">
                     <div class="tile is-parent is-vertical">
                         @if(isset($subjects[0]))
-                            <article class="tile is-child notification is-primary">
+                            <article class="tile is-child notification is-subject-tile is-primary is-{{ str_slug($subjects[0]->title) }}">
                                 <p class="title">{{ $subjects[0]->title }}</p>
                                 <p class="subtitle">{{ str_limit($subjects[0]->description,30) }}</p>
                             </article>
                         @endif
                         @if(isset($subjects[1]))
-                            <article class="tile is-child notification is-warning">
+                            <article class="tile is-child notification is-subject-tile is-warning is-{{ str_slug($subjects[1]->title) }}">
                                 <p class="title">{{ $subjects[1]->title }}</p>
                                 <p class="subtitle">{{ str_limit($subjects[1]->description,30) }}</p>
                             </article>
@@ -43,12 +43,9 @@
                     </div>
                     @if(isset($subjects[2]))
                         <div class="tile is-parent">
-                            <article class="tile is-child notification is-info">
+                            <article class="tile is-child notification is-subject-tile is-info is-{{ str_slug($subjects[2]->title) }}">
                                 <p class="title">{{ $subjects[2]->title }}</p>
                                 <p class="subtitle">{{ str_limit($subjects[2]->description,30) }}</p>
-                                <figure class="image is-4by3">
-                                    <img src="http://placehold.it/640x480">
-                                </figure>
                             </article>
                         </div>
                     @endif
@@ -56,7 +53,7 @@
                 @if(isset($subjects[4]))
                     <div class="tile is-parent is-bold">
 
-                        <article class="tile is-child notification is-danger">
+                        <article class="tile is-child notification is-subject-tile is-danger is-{{ str_slug($subjects[4]->title) }}">
                             <p class="title">{{ $subjects[4]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[4]->description,30) }}</p>
                             <div class="content">
@@ -70,7 +67,7 @@
             @if(isset($subjects[3]))
                 <div class="tile is-parent is-4">
 
-                    <article class="tile is-child notification is-success">
+                    <article class="tile is-child notification is-subject-tile is-success is-{{ str_slug($subjects[3]->title) }}">
                         <div class="content">
                             <p class="title">{{ $subjects[3]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[3]->description,30) }}</p>
@@ -87,7 +84,7 @@
             @if(isset($subjects[5]))
                 <div class="tile is-4 is-parent">
 
-                    <article class="tile is-child notification is-success">
+                    <article class="tile is-child notification is-subject-tile is-success is-{{ str_slug($subjects[5]->title) }}">
                         <div class="content">
                             <p class="title">{{ $subjects[5]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[5]->description,30) }}</p>
@@ -102,7 +99,7 @@
             @if(isset($subjects[6]))
                 <div class="tile is-4 is-parent">
 
-                    <article class="tile is-child notification is-warning">
+                    <article class="tile is-child notification is-subject-tile is-warning is-{{ str_slug($subjects[6]->title) }}">
                         <div class="content">
                             <p class="title">{{ $subjects[6]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[6]->description,30) }}</p>
@@ -117,7 +114,7 @@
             @if(isset($subjects[7]))
                 <div class="tile is-4 is-parent">
 
-                    <article class="tile is-child notification is-danger">
+                    <article class="tile is-child notification is-subject-tile is-danger is-{{ str_slug($subjects[7]->title) }}">
                         <div class="content">
                             <p class="title">{{ $subjects[7]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[7]->description,30) }}</p>
