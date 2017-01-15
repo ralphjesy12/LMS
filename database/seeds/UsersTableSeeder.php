@@ -106,25 +106,38 @@ class UsersTableSeeder extends Seeder
         $principal->attachRole($principalRole);
 
         // SUBJECT FACTORY
-
+        $s = 1;
         foreach ([
-            'Science',
-            'Filipino',
-            'English',
-            'Mathematics',
-            'Araling Panlipunan',
-            'Edukasyon sa Pagpapakatao',
-            'Music',
-            'Arts',
-            'Physical Education',
-            'Health',
-            'Edukasyong Pantahanan at Pangkabuhayan',
-            'Technology and Livelihood Education'
+            'Science' => [ 'count' => 16, 'folder' => 'science' ],
+            'Filipino' => [ 'count' => 15, 'folder' => 'socialstudies' ],
+            'English' => [ 'count' => 5, 'folder' => 'english' ],
+            'Mathematics' => [ 'count' => 8, 'folder' => 'math' ],
+            'Araling Panlipunan' => [ 'count' => 15, 'folder' => 'socialstudies' ],
+            'Edukasyon sa Pagpapakatao' => [ 'count' => 15, 'folder' => 'socialstudies' ],
+            'Music' => [ 'count' => 6, 'folder' => 'artsandmusic' ],
+            'Arts' => [ 'count' => 6, 'folder' => 'artsandmusic' ],
+            'Physical Education' => [ 'count' => 9, 'folder' => 'health' ],
+            'Health' => [ 'count' => 9, 'folder' => 'health' ],
+            'Edukasyong Pantahanan at Pangkabuhayan' => [ 'count' => 15, 'folder' => 'socialstudies' ],
+            'Technology and Livelihood Education' => [ 'count' => 8, 'folder' => 'technology' ]
         ]
-        as $subject) {
+        as $subject => $data) {
+
             factory(App\Subject::class)->create([
                 'title' => $subject
             ]);
+
+
+
+            for ($i=0; $i < $data['count']; $i++) {
+                factory(App\Lesson::class)->create([
+                    'subject_id' => $s,
+                    'teacher_id' => $teacher->id,
+                    'imagepath' => '/img/'.$data['folder'].'/icon' . ($i==0 ? '' : ' ('.$i.')') . '.png'
+                ]);
+            }
+
+            $s++;
         }
 
 

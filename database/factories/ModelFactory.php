@@ -14,7 +14,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
-
+    $faker = Faker\Factory::create('en_US');
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -26,7 +26,18 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Subject::class, function (Faker\Generator $faker) {
     $faker = Faker\Factory::create('en_US');
     return [
-        'title' => $faker->sentence(20,true),
+        'title' => $faker->text(15,true),
         'description' => $faker->paragraphs(5,true)
+    ];
+});
+
+$factory->define(App\Lesson::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('en_US');
+    return [
+        'title' => $faker->catchPhrase,
+        'description' => $faker->paragraphs(10,true),
+        'content' => $faker->paragraphs(10,true),
+        'subject_id' => 1,
+        'teacher_id' => 1
     ];
 });

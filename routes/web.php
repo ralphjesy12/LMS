@@ -27,8 +27,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home/subject/new', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectCreate']);
     Route::get('/home/subject/{id}', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectView']);
 
-
 });
+
+
 
 Route::resource('subjects', 'SubjectController',
 [
@@ -41,6 +42,7 @@ Route::resource('subjects', 'SubjectController',
     ]
 ]);
 
+Route::get('/subject/{id}/lessons','SubjectController@indexLessons');
 
 Route::group(['prefix' => 'artisan'], function () {
     //Clear Cache facade value:

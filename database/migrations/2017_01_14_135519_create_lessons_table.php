@@ -19,6 +19,7 @@ class CreateLessonsTable extends Migration
             $table->text('description');
             $table->text('content');
             $table->integer('order')->default(0);
+            $table->string('imagepath')->nullable();
             $table->integer('subject_id');
             $table->integer('teacher_id');
             $table->timestamps();

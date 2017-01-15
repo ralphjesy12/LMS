@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Subject;
+use App\Lesson;
+
 
 class SubjectController extends Controller
 {
@@ -18,6 +20,15 @@ class SubjectController extends Controller
         //
         return view('subjects',[
             'subjects' => Subject::paginate(8)
+        ]);
+    }
+
+    public function indexLessons($subject)
+    {
+        //
+        return view('subject-lessons',[
+            'subject' => Subject::findOrFail($subject),
+            'lessons' => Lesson::where('subject_id',$subject)->paginate(8)
         ]);
     }
 

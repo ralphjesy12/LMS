@@ -29,45 +29,40 @@
                 <div class="tile">
                     <div class="tile is-parent is-vertical">
                         @if(isset($subjects[0]))
-                            <article class="tile is-child notification is-subject-tile is-primary is-{{ str_slug($subjects[0]->title) }}">
+                            <a href="{{ url('subject/'.$subjects[0]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-primary is-{{ str_slug($subjects[0]->title) }}">
                                 <p class="title">{{ $subjects[0]->title }}</p>
                                 <p class="subtitle">{{ str_limit($subjects[0]->description,30) }}</p>
-                            </article>
+                            </a>
                         @endif
                         @if(isset($subjects[1]))
-                            <article class="tile is-child notification is-subject-tile is-warning is-{{ str_slug($subjects[1]->title) }}">
+                            <a href="{{ url('subject/'.$subjects[1]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-warning is-{{ str_slug($subjects[1]->title) }}">
                                 <p class="title">{{ $subjects[1]->title }}</p>
                                 <p class="subtitle">{{ str_limit($subjects[1]->description,30) }}</p>
-                            </article>
+                            </a>
                         @endif
                     </div>
                     @if(isset($subjects[2]))
                         <div class="tile is-parent">
-                            <article class="tile is-child notification is-subject-tile is-info is-{{ str_slug($subjects[2]->title) }}">
+                            <a href="{{ url('subject/'.$subjects[2]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-info is-{{ str_slug($subjects[2]->title) }}">
                                 <p class="title">{{ $subjects[2]->title }}</p>
                                 <p class="subtitle">{{ str_limit($subjects[2]->description,30) }}</p>
-                            </article>
+                            </a>
                         </div>
                     @endif
                 </div>
                 @if(isset($subjects[4]))
                     <div class="tile is-parent is-bold">
-
-                        <article class="tile is-child notification is-subject-tile is-danger is-{{ str_slug($subjects[4]->title) }}">
+                        <a href="{{ url('subject/'.$subjects[4]->id.'/lessons') }}" class="tile is-block is-child notification is-subject-tile is-danger is-{{ str_slug($subjects[4]->title) }}">
                             <p class="title">{{ $subjects[4]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[4]->description,30) }}</p>
-                            <div class="content">
-                                <!-- Content -->
-                            </div>
-                        </article>
-
+                        </a>
                     </div>
                 @endif
             </div>
             @if(isset($subjects[3]))
                 <div class="tile is-parent is-4">
 
-                    <article class="tile is-child notification is-subject-tile is-success is-{{ str_slug($subjects[3]->title) }}">
+                    <a href="{{ url('subject/'.$subjects[3]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-success is-{{ str_slug($subjects[3]->title) }}">
                         <div class="content">
                             <p class="title">{{ $subjects[3]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[3]->description,30) }}</p>
@@ -75,7 +70,7 @@
                                 <!-- Content -->
                             </div>
                         </div>
-                    </article>
+                    </a>
 
                 </div>
             @endif
@@ -84,7 +79,7 @@
             @if(isset($subjects[5]))
                 <div class="tile is-4 is-parent">
 
-                    <article class="tile is-child notification is-subject-tile is-success is-{{ str_slug($subjects[5]->title) }}">
+                    <a href="{{ url('subject/'.$subjects[5]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-success is-{{ str_slug($subjects[5]->title) }}">
                         <div class="content">
                             <p class="title">{{ $subjects[5]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[5]->description,30) }}</p>
@@ -92,14 +87,14 @@
                                 <!-- Content -->
                             </div>
                         </div>
-                    </article>
+                    </a>
 
                 </div>
             @endif
             @if(isset($subjects[6]))
                 <div class="tile is-4 is-parent">
 
-                    <article class="tile is-child notification is-subject-tile is-warning is-{{ str_slug($subjects[6]->title) }}">
+                    <a href="{{ url('subject/'.$subjects[6]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-warning is-{{ str_slug($subjects[6]->title) }}">
                         <div class="content">
                             <p class="title">{{ $subjects[6]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[6]->description,30) }}</p>
@@ -107,14 +102,14 @@
                                 <!-- Content -->
                             </div>
                         </div>
-                    </article>
+                    </a>
 
                 </div>
             @endif
             @if(isset($subjects[7]))
                 <div class="tile is-4 is-parent">
 
-                    <article class="tile is-child notification is-subject-tile is-danger is-{{ str_slug($subjects[7]->title) }}">
+                    <a href="{{ url('subject/'.$subjects[7]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-danger is-{{ str_slug($subjects[7]->title) }}">
                         <div class="content">
                             <p class="title">{{ $subjects[7]->title }}</p>
                             <p class="subtitle">{{ str_limit($subjects[7]->description,30) }}</p>
@@ -122,16 +117,16 @@
                                 <!-- Content -->
                             </div>
                         </div>
-                    </article>
+                    </a>
 
                 </div>
             @endif
         </div>
-
-        <div class="box">
-            {{ $subjects->links('vendor.pagination.simple-bulma') }}
-        </div>
-
+        @if($subjects->hasPages())
+            <div class="box">
+                {{ $subjects->links('vendor.pagination.simple-bulma') }}
+            </div>
+        @endif
     </div>
 
 
