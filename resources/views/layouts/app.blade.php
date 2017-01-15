@@ -95,7 +95,6 @@
                 <div class="tabs is-centered">
                     <ul>
                         <li><a class="text-white">Copyright 2016 &copy; Kaunlaran</a></li>
-                        <li><a class="text-white" href="{{ url('teacher/login') }}">Instructor</a></li>
                     </ul>
                 </div>
             </div>
