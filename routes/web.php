@@ -27,13 +27,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home/subject/new', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectCreate']);
     Route::get('/home/subject/{id}', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectView']);
 
-    Route::resource('subject', 'SubjectController',
-    [
-        'only' => [
-            'store'
-        ]
-    ]);
+
 });
+
+Route::resource('subjects', 'SubjectController',
+[
+    'only' => [
+        'index',
+        'store'
+    ],
+    'names' => [
+        'store' => 'subject.store'
+    ]
+]);
 
 
 Route::group(['prefix' => 'artisan'], function () {

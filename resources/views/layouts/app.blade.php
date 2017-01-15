@@ -37,8 +37,8 @@
                             <span></span>
                         </span>
                         <div class="nav-right nav-menu">
-                            <a class="nav-item">
-                                About
+                            <a href="{{ route('subjects.index') }}"  class="nav-item">
+                                Subjects
                             </a>
                             <a class="nav-item">
                                 Tour
