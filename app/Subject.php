@@ -11,4 +11,8 @@ class Subject extends Model
         'title',
         'description',
     ];
+
+    public function lessons(){
+        return $this->hasMany('App\Lesson');
+    }
 }

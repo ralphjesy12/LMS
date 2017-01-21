@@ -25,10 +25,11 @@ class SubjectController extends Controller
 
     public function indexLessons($subject)
     {
-        //
+        $subject = Subject::findOrFail($subject);
+
         return view('subject-lessons',[
-            'subject' => Subject::findOrFail($subject),
-            'lessons' => Lesson::where('subject_id',$subject)->paginate(8)
+            'subject' => $subject,
+            'lessons' => $subject->lessons()->paginate(8)
         ]);
     }
 

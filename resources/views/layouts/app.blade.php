@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Learning Management System - Kaunlaran Elementary School</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bulma.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/lms.css') }}">
 
@@ -57,7 +57,7 @@
                                     </a>
                                 </span>
                             @else
-                                <a class="nav-item">
+                                <a href="/" class="nav-item">
                                     Hi, {{ Auth::user()->name }} !
                                 </a>
                                 <span class="nav-item">

@@ -23,10 +23,6 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home','HomeController@index');
 
-    Route::get('/home/subjects', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjects']);
-    Route::get('/home/subject/new', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectCreate']);
-    Route::get('/home/subject/{id}', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectView']);
-
     Route::resource('lesson', 'LessonController',
     [
         'only' => [
@@ -34,6 +30,18 @@ Route::group(['middleware' => ['auth']], function () {
         ],
     ]);
 });
+
+
+
+Route::group(['middleware' => ['auth','role:student']], function () {
+    Route::get('/home/subjects', 'StudentController@subjects');
+});
+Route::group(['middleware' => ['auth','role:teacher']], function () {
+    Route::get('/home/subjects', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjects']);
+    Route::get('/home/subject/new', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectCreate']);
+    Route::get('/home/subject/{id}', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectView']);
+});
+
 
 Route::resource('subjects', 'SubjectController',
 [
@@ -45,8 +53,6 @@ Route::resource('subjects', 'SubjectController',
         'store' => 'subject.store'
     ]
 ]);
-
-
 
 Route::get('/subject/{id}/lessons','SubjectController@indexLessons');
 
@@ -81,4 +87,11 @@ Route::group(['prefix' => 'artisan'], function () {
         return '<h1>Clear Config cleared</h1>';
     });
 
+});
+
+
+Route::group(['prefix' => 'student', 'middleware' => ['auth','role:student']], function() {
+    Route::get('/', 'StudentController@home');
+    Route::get('/subjects', 'StudentController@subjects');
+    Route::get('/subject/{id}/lessons', 'StudentController@subjectLessons');
 });

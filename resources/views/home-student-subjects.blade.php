@@ -3,7 +3,7 @@
 @section('content')
     <div class="container profile ">
 
-        @include('card-profile-teacher',[
+        @include('card-profile-student',[
             'tab' => 'subjects'
         ])
 
@@ -32,9 +32,7 @@
                             </div>
                         </div>
                         <footer class="card-footer">
-                            <a href="{{ url( 'home/subject/' . $subject->id ) }}" class="card-footer-item">View</a>
-                            <a href="{{ url( 'home/subject/edit/' . $subject->id ) }}" class="card-footer-item">Edit</a>
-                            <a href="{{ url( 'home/subject/delete/' . $subject->id ) }}" class="card-footer-item">Delete</a>
+                            <a href="{{ url( 'subject/' . $subject->id .'/lessons' ) }}" class="card-footer-item">View Lessons</a>
                         </footer>
                     </div>
                 </div>
