@@ -36,22 +36,24 @@
                         'is-danger',
                         'is-primary'
                         ][$key%5] }}">
-                        <article class="media">
-                            <div class="media-left">
-                                <figure class="image is-128x128">
-                                    <img src="{{ $lesson->imagepath }}" alt="Image">
-                                </figure>
-                            </div>
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        <a href="{{ url('lesson/'.$lesson->id) }}"><strong>{{ $lesson->title }}</strong></a> <small style="float:right;">{{ $lesson->updated_at->diffForHumans() }}</small>
-                                        <br>
-                                        {{ str_limit($lesson->description,200) }}
-                                    </p>
+                        <a href="{{ url('lesson/'.$lesson->id) }}" class="content">
+                            <article class="media">
+                                <div class="media-left">
+                                    <figure class="image is-128x128">
+                                        <img src="{{ $lesson->imagepath }}" alt="Image">
+                                    </figure>
                                 </div>
-                            </div>
-                        </article>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{ $lesson->title }}</strong> <small style="float:right;">{{ $lesson->updated_at->diffForHumans() }}</small>
+                                            <br>
+                                            {{ str_limit($lesson->description,200) }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </a>
                     </div>
                 </div>
             @endforeach
