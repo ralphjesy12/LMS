@@ -52,16 +52,8 @@
 
                             @if (Auth::guest())
                                 <span class="nav-item">
-                                    <a href="{{ url('/login') }}" class="button is-borderless">
-                                        <span class="icon">
-                                            <i class="fa fa-user-circle-o"></i>
-                                        </span>
-                                    </a>
-                                </span>
-
-                                <span class="nav-item">
-                                    <a href="{{ url('/register') }}" class="button is-default">
-                                        ENROLL NOW
+                                    <a href="{{ url('/login') }}" class="button is-default">
+                                        Start Learning
                                     </a>
                                 </span>
                             @else
