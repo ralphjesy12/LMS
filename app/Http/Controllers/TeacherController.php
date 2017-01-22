@@ -25,7 +25,7 @@ class TeacherController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    public function index()
+    public function home()
     {
         return view('home-teacher');
     }
@@ -53,6 +53,33 @@ class TeacherController extends Controller
     {
         return view('home-teacher-subject-create');
     }
+
+
+    /**
+    * Show the form for creating Lessons.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function lessonCreate($id)
+    {
+        return view('home-teacher-lesson-create',[
+            'subject' => Subject::findOrFail($id)
+        ]);
+    }
+
+    /**
+    * Show the form for creating Subjects.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function subjectEdit($id)
+    {
+        $subject = Subject::findOrFail($id);
+        return view('home-teacher-subject-edit',[
+            'subject' => $subject
+        ]);
+    }
+
     /**
     * Show the details for a Subject.
     *
@@ -61,8 +88,11 @@ class TeacherController extends Controller
     public function subjectView($id)
     {
         $subject = Subject::findOrFail($id);
+        $lessons = $subject->lessons()->paginate(20);
+
         return view('home-teacher-subject-view',[
-            'subject' => $subject
+            'subject' => $subject,
+            'lessons' => $lessons
         ]);
     }
 

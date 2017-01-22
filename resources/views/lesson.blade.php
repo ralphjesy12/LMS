@@ -25,6 +25,9 @@
                                         </p>
                                         <div class="control is-group">
                                             <a href="{{ url('subject/'.$lesson->subject_id.'/lessons') }}" class="button is-warning"><span>Back to Lessons</span></a>
+                                            @if(Auth::user() && Auth::user()->hasRole('teacher'))
+                                                <a href="{{ url('/teacher/lesson/'.$lesson->id.'/edit') }}" class="button is-default" target="_blank"><span>Edit Lesson</span></a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

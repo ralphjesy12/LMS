@@ -39,7 +39,7 @@ Parents can view his/her children’s scores in quizzes, as well as the grade in
 - Can add comment
 
 #### Teachers Module
-- Can add lessons
+- [OK]Can add lessons
 - Can upload videos
 - Can upload exams
 - Can upload quizzes

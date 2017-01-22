@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 use App\Lesson;
 
 class LessonController extends Controller
@@ -37,6 +38,23 @@ class LessonController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'content' => 'required|string',
+        ]);
+
+
+        if($validator->fails()){
+            return back()->withErrors($validator);
+        }
+
+        $lesson = Lesson::create($request->all());
+
+        return back()->with([
+            'status' => 'Lesson created successfully!',
+            'lesson' => $lesson->id
+        ]);
     }
 
     /**
@@ -62,6 +80,11 @@ class LessonController extends Controller
     public function edit($id)
     {
         //
+        $lesson = Lesson::findOrFail($id);
+        return view('home-teacher-lesson-edit',[
+            'lesson' => $lesson,
+            'subject' => $lesson->subject
+        ]);
     }
 
     /**
@@ -74,6 +97,23 @@ class LessonController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'content' => 'required|string',
+        ]);
+
+
+        if($validator->fails()){
+            return back()->withErrors($validator);
+        }
+
+        $lesson = Lesson::findOrFail($id)->update($request->only(['title','description','content']));
+
+        return back()->with([
+            'status' => 'Subject updated successfully!',
+            'lesson' => $id
+        ]);
     }
 
     /**
@@ -85,5 +125,10 @@ class LessonController extends Controller
     public function destroy($id)
     {
         //
+        Lesson::findOrFail($id)->delete();
+
+        return back()->with([
+            'status' => 'Lesson deleted successfully!',
+        ]);
     }
 }

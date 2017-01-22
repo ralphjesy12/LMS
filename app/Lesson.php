@@ -12,6 +12,10 @@ class Lesson extends Model
         'description',
         'content',
         'subject_id',
-        'teacher_id', 
+        'teacher_id',
     ];
+
+    public function subject(){
+        return $this->belongsTo('App\Subject');
+    }
 }

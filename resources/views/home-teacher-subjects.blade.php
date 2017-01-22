@@ -32,9 +32,9 @@
                             </div>
                         </div>
                         <footer class="card-footer">
-                            <a href="{{ url( 'home/subject/' . $subject->id ) }}" class="card-footer-item">View</a>
-                            <a href="{{ url( 'home/subject/edit/' . $subject->id ) }}" class="card-footer-item">Edit</a>
-                            <a href="{{ url( 'home/subject/delete/' . $subject->id ) }}" class="card-footer-item">Delete</a>
+                            <a href="{{ url( 'teacher/subject/' . $subject->id . '/lessons')  }}" class="card-footer-item">View</a>
+                            <a href="{{ url( 'teacher/subject/' . $subject->id . '/edit' ) }}" class="card-footer-item">Edit</a>
+                            <a href="{{ url( 'teacher/subject/' . $subject->id . '/delete' ) }}" class="card-footer-item btn-subject-delete">Delete</a>
                         </footer>
                     </div>
                 </div>

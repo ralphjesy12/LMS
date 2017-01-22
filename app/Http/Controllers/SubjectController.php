@@ -91,6 +91,10 @@ class SubjectController extends Controller
     public function edit($id)
     {
         //
+        $subject = Subject::findOrFail($id);
+        return view('home-teacher-subject-edit',[
+            'subject' => $subject
+        ]);
     }
 
     /**
@@ -103,6 +107,24 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'description' => 'required|string',
+        ]);
+
+
+        if($validator->fails()){
+            return back()->withErrors($validator);
+        }
+
+        $subject = Subject::findOrFail($id)->update($request->only(['title','description']));
+
+        return back()->with([
+            'status' => 'Subject updated successfully!',
+            'subject' => $id
+        ]);
+
     }
 
     /**
@@ -113,6 +135,10 @@ class SubjectController extends Controller
     */
     public function destroy($id)
     {
-        //
+        Subject::findOrFail($id)->delete();
+
+        return back()->with([
+            'status' => 'Subject deleted successfully!',
+        ]);
     }
 }

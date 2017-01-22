@@ -11,7 +11,9 @@
                     <div class="level-item">
                         <p class="subtitle is-5">
                             <strong>{{ $lessons->total() }}</strong> lessons
+
                         </p>
+
                     </div>
                 </div>
                 <div class="level-right">
@@ -21,7 +23,14 @@
                             <button class="button">
                                 Search
                             </button>
+
+
                         </p>
+                    </div>
+                    <div class="level-item">
+                        @if(Auth::user() && Auth::user()->hasRole('teacher'))
+                            <a href="{{ url('/teacher/subject/'.$subject->id.'/edit') }}" class="button is-default" target="_blank"><span>Edit Subject</span></a>
+                        @endif
                     </div>
                 </div>
             </nav>

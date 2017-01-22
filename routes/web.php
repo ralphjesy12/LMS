@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     [
         'only' => [
             'show',
+            'store'
         ],
     ]);
 });
@@ -38,7 +39,6 @@ Route::group(['middleware' => ['auth','role:student']], function () {
 });
 Route::group(['middleware' => ['auth','role:teacher']], function () {
     Route::get('/home/subjects', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjects']);
-    Route::get('/home/subject/new', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectCreate']);
     Route::get('/home/subject/{id}', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectView']);
 });
 
@@ -47,7 +47,7 @@ Route::resource('subjects', 'SubjectController',
 [
     'only' => [
         'index',
-        'store'
+        'store',
     ],
     'names' => [
         'store' => 'subject.store'
@@ -94,4 +94,19 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth','role:student']], f
     Route::get('/', 'StudentController@home');
     Route::get('/subjects', 'StudentController@subjects');
     Route::get('/subject/{id}/lessons', 'StudentController@subjectLessons');
+});
+
+
+Route::group(['prefix' => 'teacher', 'middleware' => ['auth','role:teacher']], function() {
+    Route::get  ('/',                       'TeacherController@home');
+    Route::get  ('/subjects',               'TeacherController@subjects');
+    Route::get  ('/subject/{id}/lessons',   'TeacherController@subjectView');
+    Route::get  ('/subject/{id}/edit',      'SubjectController@edit');
+    Route::get  ('/subject/new',            'TeacherController@subjectCreate');
+    Route::post ('/subject/{id}/update',    'SubjectController@update');
+    Route::get  ('/subject/{id}/delete',    'SubjectController@destroy');
+    Route::get  ('/subject/{id}/lesson/new','TeacherController@lessonCreate');
+    Route::get  ('/lesson/{id}/delete',    'LessonController@destroy');
+    Route::get  ('/lesson/{id}/edit',      'LessonController@edit');
+    Route::post  ('/lesson/{id}/update',      'LessonController@update');
 });

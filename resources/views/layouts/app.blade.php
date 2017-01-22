@@ -92,7 +92,8 @@
             </div>
         </div>
     </section>
-    <script async type="text/javascript" src="{{ asset('js/embed.js') }}"></script>
+    <script async type="text/javascript" src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script async type="text/javascript" src="{{ asset('js/lms.js') }}"></script>
     <!-- Scripts -->
 </body>
 </html>
