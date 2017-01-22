@@ -54,6 +54,15 @@ Route::resource('subjects', 'SubjectController',
     ]
 ]);
 
+Route::resource('exam', 'ExamController',
+[
+    'only' => [
+        'index',
+        'store',
+        'update'
+    ],
+]);
+
 Route::get('/subject/{id}/lessons','SubjectController@indexLessons');
 
 Route::group(['prefix' => 'artisan'], function () {
@@ -98,15 +107,27 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth','role:student']], f
 
 
 Route::group(['prefix' => 'teacher', 'middleware' => ['auth','role:teacher']], function() {
+
     Route::get  ('/',                       'TeacherController@home');
+
     Route::get  ('/subjects',               'TeacherController@subjects');
     Route::get  ('/subject/{id}/lessons',   'TeacherController@subjectView');
-    Route::get  ('/subject/{id}/edit',      'SubjectController@edit');
+
     Route::get  ('/subject/new',            'TeacherController@subjectCreate');
+    Route::get  ('/subject/{id}/edit',      'SubjectController@edit');
     Route::post ('/subject/{id}/update',    'SubjectController@update');
     Route::get  ('/subject/{id}/delete',    'SubjectController@destroy');
+
     Route::get  ('/subject/{id}/lesson/new','TeacherController@lessonCreate');
-    Route::get  ('/lesson/{id}/delete',    'LessonController@destroy');
     Route::get  ('/lesson/{id}/edit',      'LessonController@edit');
-    Route::post  ('/lesson/{id}/update',      'LessonController@update');
+    Route::post ('/lesson/{id}/update',      'LessonController@update');
+    Route::get  ('/lesson/{id}/delete',    'LessonController@destroy');
+
+    Route::get  ('/exams',    'ExamController@index');
+    Route::get  ('/exam/new',    'ExamController@create');
+    Route::get  ('/exam/{id}',    'ExamController@show');
+    Route::get  ('/exam/{id}/edit',    'ExamController@edit');
+    Route::post  ('/exam/{id}/update',    'ExamController@update');
+    Route::get  ('/exam/{id}/delete',    'ExamController@destroy');
+
 });

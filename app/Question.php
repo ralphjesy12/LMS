@@ -16,4 +16,9 @@ class Question extends Model
         'lesson_id',
         'order',
     ];
+
+    public function choices(){
+        return $this->hasMany('App\Choice');
+    }
+
 }

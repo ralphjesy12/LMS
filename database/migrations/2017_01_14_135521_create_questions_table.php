@@ -18,9 +18,9 @@ class CreateQuestionsTable extends Migration
             $table->string('content');
             $table->integer('score');
             $table->string('type');
-            $table->integer('answer');
-            $table->integer('exam_id');
-            $table->integer('lesson_id');
+            $table->string('answer');
+            $table->integer('exam_id')->nullable();
+            $table->integer('lesson_id')->nullable();
             $table->integer('order')->default(0);
             $table->timestamps();
         });

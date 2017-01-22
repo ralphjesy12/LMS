@@ -13,4 +13,12 @@ class Exam extends Model
         'subject_id',
         'order',
     ];
+
+    public function examQuestions(){
+        return $this->hasMany('App\Question');
+    }
+
+    public function subject(){
+        return $this->belongsTo('App\Subject');
+    }
 }
