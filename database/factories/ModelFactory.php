@@ -41,3 +41,46 @@ $factory->define(App\Lesson::class, function (Faker\Generator $faker) {
         'teacher_id' => 1
     ];
 });
+
+$factory->define(App\Quiz::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('en_US');
+    return [
+        'title' => $faker->catchPhrase,
+        'description' => $faker->sentences(3,true),
+        'lesson_id' => 1,
+        'order' => 0
+    ];
+});
+
+$factory->define(App\Exam::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('en_US');
+    return [
+        'title' => $faker->catchPhrase,
+        'description' => $faker->sentences(3,true),
+        'subject_id' => 1,
+        'order' => 0
+    ];
+});
+
+$factory->define(App\Question::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('en_US');
+    return [
+        'content' => $faker->sentences(2,true),
+        'score' => 1,
+        'type' => 'text',
+        'answer' => '',
+        'exam_id' => null,
+        'quiz_id' => null,
+        'order' => 0,
+    ];
+});
+
+$factory->define(App\Choice::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('en_US');
+    return [
+        'content' => $faker->catchPhrase,
+        'type' => 'text',
+        'question_id' => 0,
+        'order' => 0,
+    ];
+});

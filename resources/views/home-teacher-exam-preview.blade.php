@@ -32,11 +32,11 @@
                                             <p class="control">
                                                 @if(count(explode(',',$question->answer)) > 1)
                                                     <span class="checkbox">
-                                                        <input type="checkbox" name="answer[{{ $k }}][]" value="{{ $choice->id }}"/>
+                                                        <input disabled type="checkbox" name="answer[{{ $k }}][]" value="{{ $choice->id }}" {{ (in_array($choice->id,explode(',',$question->answer)) ? 'checked' : '') }}/>
                                                     </span>
                                                 @else
                                                     <span class="radio">
-                                                        <input type="radio" name="answer[{{ $k }}]" value="{{ $choice->id }}"/>
+                                                        <input disabled type="radio" name="answer[{{ $k }}]" value="{{ $choice->id }}" {{ ($choice->id==$question->answer ? 'checked' : '') }}/>
                                                     </span>
                                                 @endif
 

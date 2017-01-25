@@ -28,7 +28,7 @@
                     <div class="container">
                         <div class="nav-left">
                             <a class="nav-item" href="{{ asset('/') }}">
-                                <img src="{{ asset('img/kaunlaran.png') }}" alt="Description">
+                                <img src="{{ asset('img/kaunlaran.png') }}" alt="Description" style="    height: 100px; max-height: none;">
                             </a>
                         </div>
                         <span class="nav-toggle">

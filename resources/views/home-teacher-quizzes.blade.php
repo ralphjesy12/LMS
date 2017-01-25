@@ -86,6 +86,10 @@
                 </form>
             </div>
         </div>
-        {{ $quizzes->links() }}
+        @if($quizzes->hasPages())
+            <div class="box">
+                {{ $quizzes->links('vendor.pagination.simple-bulma') }}
+            </div>
+        @endif
     </div>
 @endsection

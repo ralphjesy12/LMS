@@ -72,6 +72,11 @@
                 </form>
             </div>
         </div>
-        {{ $exams->links() }}
+
+        @if($exams->hasPages())
+            <div class="box">
+                {{ $exams->links('vendor.pagination.simple-bulma') }}
+            </div>
+        @endif
     </div>
 @endsection
