@@ -53,6 +53,7 @@
                         </a>
                     </header>
                     <div class="card-content">
+                        <label class="label">Subject *</label>
                         <p class="control">
                             <span class="select is-fullwidth">
                                 <select name="subject">

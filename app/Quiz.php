@@ -11,6 +11,14 @@ class Quiz extends Model
         'title',
         'lesson_id',
         'description',
-        'order', 
+        'order',
     ];
+
+    public function quizQuestions(){
+        return $this->hasMany('App\Question');
+    }
+
+    public function lesson(){
+        return $this->belongsTo('App\Lesson');
+    }
 }

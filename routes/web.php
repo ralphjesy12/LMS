@@ -127,7 +127,15 @@ Route::group(['prefix' => 'teacher', 'middleware' => ['auth','role:teacher']], f
     Route::get  ('/exam/new',    'ExamController@create');
     Route::get  ('/exam/{id}',    'ExamController@show');
     Route::get  ('/exam/{id}/edit',    'ExamController@edit');
-    Route::post  ('/exam/{id}/update',    'ExamController@update');
+    Route::post ('/exam/{id}/update',    'ExamController@update');
     Route::get  ('/exam/{id}/delete',    'ExamController@destroy');
+
+    Route::get  ('/quizzes',    'QuizController@index');
+    Route::get  ('/quiz/new',    'QuizController@create');
+    Route::get  ('/quiz/{id}',    'QuizController@show');
+    Route::get  ('/quiz/{id}/edit',    'QuizController@edit');
+    Route::post ('/quiz/store',    'QuizController@store');
+    Route::post ('/quiz/{id}/update',    'QuizController@update');
+    Route::get  ('/quiz/{id}/delete',    'QuizController@destroy');
 
 });

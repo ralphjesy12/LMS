@@ -13,7 +13,7 @@ class Question extends Model
         'type',
         'answer',
         'exam_id',
-        'lesson_id',
+        'quiz_id',
         'order',
     ];
 

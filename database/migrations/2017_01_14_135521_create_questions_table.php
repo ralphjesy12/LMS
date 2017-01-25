@@ -20,7 +20,7 @@ class CreateQuestionsTable extends Migration
             $table->string('type');
             $table->string('answer');
             $table->integer('exam_id')->nullable();
-            $table->integer('lesson_id')->nullable();
+            $table->integer('quiz_id')->nullable();
             $table->integer('order')->default(0);
             $table->timestamps();
         });

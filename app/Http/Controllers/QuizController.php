@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Exam;
+use App\Quiz;
 use App\Subject;
 use App\Question;
+use App\Lesson;
 use App\Choice;
 
-class ExamController extends Controller
+class QuizController extends Controller
 {
     /**
     * Display a listing of the resource.
@@ -18,9 +19,9 @@ class ExamController extends Controller
     public function index()
     {
         //
-        return view('home-teacher-exams',[
-            'exams' => Exam::paginate(8),
-            'subjects' => Subject::all()
+        return view('home-teacher-quizzes',[
+            'quizzes' => Quiz::paginate(8),
+            'lessons' => Lesson::orderBy('subject_id')->get()->all()
         ]);
     }
 
@@ -32,8 +33,8 @@ class ExamController extends Controller
     public function create()
     {
         //
-        return view('home-teacher-exam-create',[
-            'subjects' => Subject::all()
+        return view('home-teacher-quiz-create',[
+            'lessons' => Lesson::orderBy('subject_id')->get()->all()
         ]);
     }
 
@@ -47,10 +48,10 @@ class ExamController extends Controller
     {
         //
 
-        $e = Exam::create([
+        $e = Quiz::create([
             'title' => $request->title,
             'description' => $request->description,
-            'subject_id' => $request->subject_id,
+            'lesson_id' => $request->lesson_id,
             'order' => 0,
         ]);
 
@@ -60,8 +61,8 @@ class ExamController extends Controller
                 'score' => 1,
                 'type' => 'text',
                 'answer' => '',
-                'exam_id' => $e->id,
-                'lesson_id' => null,
+                'exam_id' => null,
+                'quiz_id' => $e->id,
                 'order' => 0,
             ]);
 
@@ -86,8 +87,8 @@ class ExamController extends Controller
         }
 
         return back()->with([
-            'status' => 'Exam created successfully!',
-            'exam' => $e->id
+            'status' => 'Quiz created successfully!',
+            'quiz' => $e->id
         ]);
     }
 
@@ -100,9 +101,9 @@ class ExamController extends Controller
     public function show($id)
     {
         //
-        $exam = Exam::findOrFail($id);
-        return view('home-teacher-exam-preview',[
-            'exam' => $exam,
+        $quiz = Quiz::findOrFail($id);
+        return view('home-teacher-quiz-preview',[
+            'quiz' => $quiz,
         ]);
     }
 
@@ -115,10 +116,10 @@ class ExamController extends Controller
     public function edit($id)
     {
         //
-        $exam = Exam::findOrFail($id);
-        return view('home-teacher-exam-edit',[
-            'subjects' => Subject::all(),
-            'exam' => $exam,
+        $quiz = quiz::findOrFail($id);
+        return view('home-teacher-quiz-edit',[
+            'lessons' => Lesson::orderBy('subject_id')->get()->all(),
+            'quiz' => $quiz,
         ]);
     }
 
@@ -132,16 +133,16 @@ class ExamController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $e = Exam::findOrFail($id);
+        $e = Quiz::findOrFail($id);
 
         $e->update([
             'title' => $request->title,
             'description' => $request->description,
-            'subject_id' => $request->subject_id,
+            'lesson_id' => $request->lesson_id,
             'order' => 0,
         ]);
 
-        Question::where('exam_id',$e->id)->each(function($ee){
+        Question::where('quiz_id',$e->id)->each(function($ee){
 
                 $choices = $ee->choices();
                 if(count($choices)>0){
@@ -158,8 +159,8 @@ class ExamController extends Controller
                 'score' => 1,
                 'type' => 'text',
                 'answer' => '',
-                'exam_id' => $e->id,
-                'lesson_id' => null,
+                'exam_id' => null,
+                'quiz_id' => $e->id,
                 'order' => 0,
             ]);
 
@@ -184,8 +185,8 @@ class ExamController extends Controller
         }
 
         return back()->with([
-            'status' => 'Exam updated successfully!',
-            'exam' => $e->id
+            'status' => 'Quiz updated successfully!',
+            'quiz' => $e->id
         ]);
     }
 
@@ -198,9 +199,9 @@ class ExamController extends Controller
     public function destroy($id)
     {
         //
-        Exam::findOrFail($id)->delete();
+        Quiz::findOrFail($id)->delete();
 
-        Question::where('exam_id',$id)->each(function($ee){
+        Question::where('quiz_id',$id)->each(function($ee){
                 $choices = $ee->choices();
                 if(count($choices)){
                     $choices->delete();
@@ -209,7 +210,7 @@ class ExamController extends Controller
         });
 
         return back()->with([
-            'status' => 'Exam deleted successfully!',
+            'status' => 'Quiz deleted successfully!',
         ]);
     }
 }
