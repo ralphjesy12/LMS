@@ -124,4 +124,11 @@ Route::group(['prefix' => 'teacher', 'middleware' => ['auth','role:teacher']], f
     Route::get  ('/student/{id}/delete',    'StudentController@destroy');
     Route::post  ('/student/{id}/update',    'StudentController@update');
 
+    Route::get  ('/student/{id}/parent/create',     'ParentController@create');
+    Route::post ('/student/{id}/parent/save',       'ParentController@store');
+    Route::get  ('/student/{id}/parent/edit',       'ParentController@edit');
+    Route::post ('/student/{id}/parent/update',     'ParentController@update');
+    // Route::get  ('/student/{id}/parent/delete',     'StudentController@destroy');
+
+
 });

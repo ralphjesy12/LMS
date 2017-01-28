@@ -28,10 +28,23 @@
                         <div class="content">
                             <p>
                                 <strong>{{ $student->name }}</strong> <small>{{ $student->email }}</small> <small style="float:right;">{{ $student->updated_at->diffForHumans() }}</small>
-                                <br>
-                                <label><strong>ID Number</strong> : {{ $student->infos()->where('key','idnum')->value('value') }}</label><br>
-                                <label><strong>Birthday</strong> : {{ $student->infos()->where('key','birthday')->value('value') }}</label>
                             </p>
+                            <div class="columns">
+                                <div class="column">
+                                    <p>
+                                        <label><strong>ID Number</strong> : {{ $student->infos()->where('key','idnum')->value('value') }}</label><br>
+                                        <label><strong>Birthday</strong> : {{ $student->infos()->where('key','birthday')->value('value') }}</label>
+                                    </p>
+                                </div>
+                                <div class="column">
+                                    @if($student->parent)
+                                        <p>
+                                            <label><strong>Parent&apos;s Name</strong> : {{ $student->parent->name }}</label><br>
+                                            <label><strong>Parent&apos;s Email</strong> : {{ $student->parent->email }}</label>
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                         <nav class="level">
                             <div class="level-left">
@@ -43,6 +56,17 @@
                                     <span class="icon is-small"><i class="fa fa-trash-o"></i></span>
                                     <small>&nbsp;DELETE</small>
                                 </a>
+                                @if($student->parent)
+                                    <a href="{{ url('teacher/student/'. $student->id . '/parent/edit') }}" class="level-item has-icon">
+                                        <span class="icon is-small"><i class="fa fa-pencil"></i></span>
+                                        <small>&nbsp;EDIT PARENT</small>
+                                    </a>
+                                @else
+                                    <a href="{{ url('teacher/student/'. $student->id . '/parent/create') }}" class="level-item has-icon">
+                                        <span class="icon is-small"><i class="fa fa-plus"></i></span>
+                                        <small>&nbsp;ADD PARENT</small>
+                                    </a>
+                                @endif
                             </div>
                         </nav>
                     </div>

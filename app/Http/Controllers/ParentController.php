@@ -10,7 +10,7 @@ use App\UserInfo;
 use Validator;
 use Illuminate\Validation\Rule;
 
-class StudentController extends Controller
+class ParentController extends Controller
 {
     /**
     * Create a new controller instance.
@@ -31,26 +31,27 @@ class StudentController extends Controller
     */
     public function index()
     {
-        $users = User::whereHas('roles',function($q){
-            $q->where('display_name','=','student');
-        })->latest('updated_at')->paginate(10);
-
-        foreach ($users as $key => $u) {
-            $users[$key]->parent = User::find($u->infos()->where('key','parent')->value('value'));
-        }
-
         return view('home-teacher-student',[
-            'students' => $users,
+            'students' => User::whereHas('roles',function($q){
+                $q->where('display_name','=','student');
+            })->latest('updated_at')->paginate(10),
         ]);
     }
 
-    public function create(){
-        return view('home-teacher-student-create');
+    public function create($id){
+        return view('home-teacher-student-parent-create',[
+            'student' => User::findOrFail($id)
+        ]);
     }
 
     public function edit($id){
-        return view('home-teacher-student-edit',[
-            'student' => User::findOrFail($id),
+
+        $student = User::findOrFail($id);
+
+        $student->parent = User::find($student->infos()->where('key','parent')->value('value'));
+
+        return view('home-teacher-student-parent-edit',[
+            'student' => $student,
         ]);
     }
     public function destroy($id){
@@ -69,7 +70,7 @@ class StudentController extends Controller
                 'email',
                 'required',
                 'min:6',
-                Rule::unique('users')->ignore($id),
+                Rule::unique('users')->ignore($request->parent_id),
             ],
             'name' => 'required',
             'password' => 'required_with:password_confirmation|confirmed',
@@ -90,29 +91,15 @@ class StudentController extends Controller
             $toUpdate['password'] = bcrypt($request->password);
         }
 
-        User::find($id)->update($toUpdate);
-
-        $userInfo = [
-            'birthday' => $request->birthday,
-            'idnum' => $request->idnum,
-        ];
-
-        foreach ($userInfo as $key => $value) {
-            UserInfo::updateOrCreate([
-                'user_id' => $id,
-                'key' => $key,
-            ],[
-                'value' => $value
-            ]);
-        }
+        User::find($request->parent_id)->update($toUpdate);
 
 
         return back()->with([
-            'status' => 'Student Profile Updated Successfuly'
+            'status' => 'Student Parent Profile Updated Successfuly'
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request,$id){
         $validator = Validator::make([
             'email' => $request->email,
             'name' => $request->name,
@@ -122,8 +109,8 @@ class StudentController extends Controller
             'email' => [
                 'email',
                 'required',
-                'unique:users',
                 'min:6',
+                'unique:users'
             ],
             'name' => 'required',
             'password' => 'required_with:password_confirmation|confirmed',
@@ -146,25 +133,23 @@ class StudentController extends Controller
 
         $user = User::create($toUpdate);
 
-        $user->attachRole(2);
+        $user->attachRole(4);
 
         $userInfo = [
-            'birthday' => $request->birthday,
-            'idnum' => $request->idnum,
+            'parent' => $user->id,
         ];
 
         foreach ($userInfo as $key => $value) {
             UserInfo::updateOrCreate([
-                'user_id' => $user->id,
+                'user_id' => $id,
                 'key' => $key,
             ],[
                 'value' => $value
             ]);
         }
 
-
         return back()->with([
-            'status' => 'Student Profile Created Successfuly'
+            'status' => 'Parent Profile Created Successfuly'
         ]);
     }
 
