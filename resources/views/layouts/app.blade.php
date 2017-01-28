@@ -10,8 +10,8 @@
 
     <title>Learning Management System - Kaunlaran Elementary School</title>
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/bulma.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/lms.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bulma.css?'.date('Ymd')) }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/lms.css?'.date('Ymd')) }}">
     @stack('styles')
     <!-- Scripts -->
     <script>
@@ -57,9 +57,16 @@
                                     </a>
                                 </span>
                             @else
-                                <a href="/" class="nav-item">
-                                    Hi, {{ Auth::user()->name }} !
-                                </a>
+                                
+                                @if(Auth::user()->hasRole('student'))
+                                    <a href="/student" class="nav-item">
+                                        Hi, {{ Auth::user()->name }} !
+                                    </a>
+                                @else
+                                    <a href="/" class="nav-item">
+                                        Hi, {{ Auth::user()->name }} !
+                                    </a>
+                                @endif
                                 <span class="nav-item">
                                     <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="button is-default">
                                         SIGN OUT
@@ -79,7 +86,7 @@
 
         <div class="hero-body">
 
-                @yield('content')
+            @yield('content')
         </div>
 
         <div class="hero-foot">

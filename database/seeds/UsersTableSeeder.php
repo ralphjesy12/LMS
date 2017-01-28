@@ -125,25 +125,80 @@ class UsersTableSeeder extends Seeder
 
             $s = factory(App\Subject::class)->create([
                 'title' => $subject
-            ])->id;
+                ])->id;
 
-            for ($k=0; $k < $data['count']; $k++) {
-                $l = factory(App\Lesson::class)->create([
+                for ($k=0; $k < $data['count']; $k++) {
+                    $l = factory(App\Lesson::class)->create([
+                        'subject_id' => $s,
+                        'teacher_id' => $teacher->id,
+                        'imagepath' => '/img/'.$data['folder'].'/icon' . ($k==0 ? '' : ' ('.$k.')') . '.png'
+                    ]);
+
+                    $q = factory(App\Quiz::class)->create([
+                        'lesson_id' => $l->id,
+                    ]);
+
+
+                    // QUIZ
+                    for ($i=0; $i < 10; $i++) {
+                        $qn = factory(App\Question::class)->create([
+                            'quiz_id' => $q->id,
+                        ]);
+
+                        $random = 4;
+                        srand();
+                        $choices = rand(2, 4);
+                        $answer = [];
+
+                        for ($j=0; $j < $choices; $j++) {
+                            $ci = factory(App\Choice::class)->create([
+                                'question_id' => $qn->id,
+                            ]);
+
+                            if(!empty($qn->answer)){
+                                $answer = explode(',',$qn->answer);
+                            }
+
+
+                            srand();
+                            if(rand(0,2)==1){
+
+                                $answer[] = $ci->id;
+
+                                $qn->update([
+                                    'answer' => implode(',',$answer)
+                                ]);
+                            }
+
+                        }
+
+                        if(count($answer)<1){
+                            $answer[] = $ci->id;
+                            $qn->update([
+                                'answer' => implode(',',$answer)
+                            ]);
+                        }
+
+                    }
+                }
+
+                // Exam
+
+                $e = factory(App\Exam::class)->create([
                     'subject_id' => $s,
-                    'teacher_id' => $teacher->id,
-                    'imagepath' => '/img/'.$data['folder'].'/icon' . ($k==0 ? '' : ' ('.$k.')') . '.png'
                 ]);
+                $takeExam = false;
+                if($s < 7){
+                    // Take Exam Randomly
+                    $takeExam = true;
+                }
 
-                $q = factory(App\Quiz::class)->create([
-                    'lesson_id' => $l->id,
-                ]);
-
-
-                // QUIZ
                 for ($i=0; $i < 10; $i++) {
                     $qn = factory(App\Question::class)->create([
-                        'quiz_id' => $q->id,
+                        'exam_id' => $e->id,
                     ]);
+
+
 
                     $random = 4;
                     srand();
@@ -179,60 +234,35 @@ class UsersTableSeeder extends Seeder
                         ]);
                     }
 
-                }
-            }
+                    if($takeExam){
+                        $data = [
+                            'user_id' => $student->id,
+                            'question_id' => $qn->id,
 
-            // Exam
+                        ];
+                        srand();
+                        if(rand(0,10)<7){
+                            $data['answer'] = $qn->answer;
+                        }
+                        factory(App\Answer::class)->create($data);
 
-            $e = factory(App\Exam::class)->create([
-                'subject_id' => $s,
-            ]);
-
-            for ($i=0; $i < 10; $i++) {
-                $qn = factory(App\Question::class)->create([
-                    'exam_id' => $e->id,
-                ]);
-
-                $random = 4;
-                srand();
-                $choices = rand(2, 4);
-                $answer = [];
-
-                for ($j=0; $j < $choices; $j++) {
-                    $ci = factory(App\Choice::class)->create([
-                        'question_id' => $qn->id,
-                    ]);
-
-                    if(!empty($qn->answer)){
-                        $answer = explode(',',$qn->answer);
-                    }
-
-
-                    srand();
-                    if(rand(0,2)==1){
-
-                        $answer[] = $ci->id;
-
-                        $qn->update([
-                            'answer' => implode(',',$answer)
-                        ]);
                     }
 
                 }
 
-                if(count($answer)<1){
-                    $answer[] = $ci->id;
-                    $qn->update([
-                        'answer' => implode(',',$answer)
+                if($takeExam){
+
+                    factory(App\Activity::class)->create([
+                        'user_id' => $student->id,
+                        'type' => 'exam-take',
+                        'description' => 'USER took exam : '.$e->title,
+                        'info' => json_encode(['exam' => $e->id]),
                     ]);
                 }
-
+                $s++;
             }
 
-            $s++;
+
+
         }
-
-
-
     }
-}

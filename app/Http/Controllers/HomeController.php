@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('teacher')) return redirect()->intended('teacher');
-        if(Auth::user()->hasRole('student')) return redirect()->intended('student');
+        if(Auth::user()->hasRole('student')) return redirect()->intended('subjects');
 
         return view('home');
     }

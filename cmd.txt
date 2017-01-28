@@ -6,6 +6,7 @@ php artisan make:model Video --migration
 php artisan make:model Question --migration
 php artisan make:model Choice --migration
 php artisan make:model Answer --migration
+php artisan make:model Activity --migration
 
 
 php artisan make:controller SubjectController --resource

@@ -30,7 +30,7 @@
 <div class="profile-options content">
     <div class="tabs is-fullwidth">
         <ul>
-            <li class="link  {{ $tab=='activity' ? 'is-active' : '' }}"><a href="{{ url('student') }}"><span class="icon"><i class="fa fa-rss"></i></span> <span>Activity</span></a></li>
+            <li class="link  {{ $tab=='activity' ? 'is-active' : '' }}"><a href="{{ url('student') }}"><span class="icon"><i class="fa fa-rss"></i></span> <span>Dashboard</span></a></li>
             <li class="link  {{ $tab=='subjects' ? 'is-active' : '' }}"><a href="{{ url('student/subjects') }}"><span class="icon"><i class="fa fa-book"></i></span> <span>Subjects</span></a></li>
             <li class="link  {{ $tab=='exams' ? 'is-active' : '' }}"><a href="{{ url('student/exams') }}"><span class="icon"><i class="fa fa-list"></i></span> <span>Exams</span></a></li>
             <li class="link  {{ $tab=='quizzes' ? 'is-active' : '' }}"><a href="{{ url('student/quizzes') }}"><span class="icon"><i class="fa fa-file-text-o"></i></span> <span>Quizzes</span></a></li>

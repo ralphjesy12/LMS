@@ -27,7 +27,11 @@ class StudentController extends Controller
     */
     public function home()
     {
-        return view('home-student');
+
+        return view('home-student',[
+            'subjects' => Subject::all(),
+            'activities' => Auth::user()->activities()->latest('updated_at')->paginate(10)
+        ]);
     }
 
 

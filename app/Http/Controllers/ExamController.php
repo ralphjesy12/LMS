@@ -7,6 +7,7 @@ use App\Exam;
 use App\Subject;
 use App\Question;
 use App\Choice;
+use App\Activity;
 use App\Answer;
 use Auth;
 
@@ -115,6 +116,15 @@ class ExamController extends Controller
         if(Auth::user()->hasRole('teacher')){
             return view('home-teacher-exam-preview',[
                 'exam' => $exam,
+            ]);
+        }
+
+        if($q==1){
+            Activity::create([
+                'user_id' => Auth::id(),
+                'type' => 'exam-take',
+                'description' => 'USER took exam : '.$exam->title,
+                'info' => json_encode(['exam' => $exam->id]),
             ]);
         }
 

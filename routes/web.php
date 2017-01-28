@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::post ('/login',    'Auth\LoginController@authenticate');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home','HomeController@index');

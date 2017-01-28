@@ -8,6 +8,7 @@ use App\Subject;
 use App\Question;
 use App\Lesson;
 use App\Choice;
+use App\Activity;
 use App\Answer;
 use Auth;
 
@@ -113,6 +114,15 @@ class QuizController extends Controller
         if(Auth::user()->hasRole('teacher')){
             return view('home-teacher-quiz-preview',[
                 'quiz' => $quiz,
+            ]);
+        }
+
+        if($q==1){
+            Activity::create([
+                'user_id' => Auth::id(),
+                'type' => 'quiz-take',
+                'description' => 'USER took quiz : '.$quiz->title,
+                'info' => json_encode(['quiz' => $quiz->id]),
             ]);
         }
 

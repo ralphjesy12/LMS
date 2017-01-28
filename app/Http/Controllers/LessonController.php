@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
+use App\Activity;
 use App\Lesson;
+use Auth;
+use Carbon\Carbon;
 
 class LessonController extends Controller
 {
@@ -66,8 +69,32 @@ class LessonController extends Controller
     public function show($id)
     {
         //
+
+        // Check if user visited this lesson for the past hour
+        $lesson = Lesson::findOrFail($id);
+
+        $logs = Auth::user()->activities()->where( 'updated_at', '>=', Carbon::now()->subHour())->where('type','lesson-visit')->latest()->get();
+
+        $readAlready = false;
+
+        foreach ($logs as $key => $log) {
+            if(json_decode($log->info)->lesson == $id){
+                $readAlready = true;
+                break;
+            }
+        }
+
+        if(!$readAlready){
+            Activity::create([
+                'user_id' => Auth::id(),
+                'type' => 'lesson-visit',
+                'description' => 'USER visited lesson '.$lesson->title,
+                'info' => json_encode(['lesson' => $id]),
+            ]);
+        }
+
         return view('lesson',[
-            'lesson' => Lesson::findOrFail($id)
+            'lesson' => $lesson
         ]);
     }
 

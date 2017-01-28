@@ -84,3 +84,25 @@ $factory->define(App\Choice::class, function (Faker\Generator $faker) {
         'order' => 0,
     ];
 });
+
+
+$factory->define(App\Answer::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('en_US');
+    return [
+        'user_id' => 1,
+        'question_id' => 1,
+        'answer' => $faker->numerify('###'),
+    ];
+});
+
+$factory->define(App\Activity::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('en_US');
+
+    return [
+        'user_id' => 1,
+        'type' => 'exam-take',
+        'description' => 'USER took exam : ',
+        'info' => json_encode(['exam' => 1]),
+        'updated_at' => $faker->dateTimeThisMonth()
+    ];
+});
