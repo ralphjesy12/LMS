@@ -117,4 +117,11 @@ Route::group(['prefix' => 'teacher', 'middleware' => ['auth','role:teacher']], f
     Route::post ('/quiz/{id}/update',    'QuizController@update');
     Route::get  ('/quiz/{id}/delete',    'QuizController@destroy');
 
+    Route::get  ('/students',    'StudentController@index');
+    Route::get  ('/student/{id}/edit',    'StudentController@edit');
+    Route::get  ('/student/create',    'StudentController@create');
+    Route::post  ('/student/save',    'StudentController@store');
+    Route::get  ('/student/{id}/delete',    'StudentController@destroy');
+    Route::post  ('/student/{id}/update',    'StudentController@update');
+
 });
