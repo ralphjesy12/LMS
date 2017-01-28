@@ -153,10 +153,11 @@ class QuizController extends Controller
 
     public function submitAnswer(Request $request,$id,$q){
 
-        Answer::create([
+        Answer::updateOrCreate([
             'user_id' => Auth::id() ,
             'question_id' => $request->question ,
-            'answer' => implode(',',$request->answer) ,
+        ],[
+            'answer' => implode(',',$request->answer)
         ]);
 
         return redirect()->intended( 'student/quiz/'.$id.'/question/' . ($q+1) );
@@ -199,12 +200,12 @@ class QuizController extends Controller
 
         Question::where('quiz_id',$e->id)->each(function($ee){
 
-                $choices = $ee->choices();
-                if(count($choices)>0){
-                    $choices->delete();
-                }
+            $choices = $ee->choices();
+            if(count($choices)>0){
+                $choices->delete();
+            }
 
-                $ee->delete();
+            $ee->delete();
 
         });
 
@@ -257,11 +258,11 @@ class QuizController extends Controller
         Quiz::findOrFail($id)->delete();
 
         Question::where('quiz_id',$id)->each(function($ee){
-                $choices = $ee->choices();
-                if(count($choices)){
-                    $choices->delete();
-                }
-                $ee->delete();
+            $choices = $ee->choices();
+            if(count($choices)){
+                $choices->delete();
+            }
+            $ee->delete();
         });
 
         return back()->with([

@@ -5,6 +5,7 @@
         <div class="box content">
             <!-- Main container -->
             <h1 class="title is-block has-text-centered">{{ $subject->title }}</h1>
+
             <nav class="level">
                 <!-- Left side -->
                 <div class="level-left">
@@ -36,6 +37,64 @@
             </nav>
         </div>
         <div class="columns is-multiline">
+            @if($subject->exam->count())
+                <div class="column is-full">
+                    <div class="box notification is-primary  has-text-centered">
+                        <label class="title is-4 is-block">{{ $subject->exam->title }}</label>
+
+                        <?php
+                        $answers = [];
+                        $score = 0;
+                        $scoreTotal = 0;
+
+                        $answers = $subject->exam->answers->where('user_id',Auth::id());
+
+                        foreach ($answers as $key => $answer) {
+
+                            $diff = array_diff(
+                                explode(',',$answer->answer),
+                                explode(',',$answer->question->answer)
+                            );
+
+                            if(count($diff)==0){
+                                $score += $answer->question->score;
+                            }
+                            $scoreTotal += $answer->question->score;
+
+                        }
+
+                        ?>
+                        @if($answers->count())
+                            <p class="subtitle is-6 has-text-centered">
+                                <label class="title is-3">{{ $score }} out of {{ $scoreTotal }} ({{ number_format((($score/$scoreTotal)*100),2) }}%)</label><br>
+                            </p>
+                            <nav class="level">
+                                <a href="#" class="level-item button is-warning is-disabled">
+                                    <span class="icon"><i class="fa fa-check"></i></span><span>You've already taken up this quiz</span>
+                                </a>
+                                </nav>
+                        @else
+                            <p class="subtitle is-6 has-text-centered">
+                                {{ $subject->exam->examQuestions()->count() }} items
+                            </p>
+
+                            <nav class="level">
+                                @if(Auth::user() && Auth::user()->hasRole('teacher'))
+                                    <a href="{{ url('teacher/exam/' . $subject->exam->id . '/edit ') }}" target="_blank" class="level-item button is-primary">
+                                        <span class="icon"><i class="fa fa-pencil"></i></span><span>Edit Exam</span>
+                                    </a>
+                                @else
+                                    <a href="{{ url('student/exam/' . $subject->exam->id) }}" class="level-item button is-primary">
+                                        <span class="icon"><i class="fa fa-check"></i></span><span>Start Exam Now</span>
+                                    </a>
+                                @endif
+                            </nav>
+                        @endif
+
+                    </div>
+                </div>
+            @endif
+
             @foreach ($lessons as $key => $lesson)
                 <div class="column is-6">
                     <div class="box notification {{ [

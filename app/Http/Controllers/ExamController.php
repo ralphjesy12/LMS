@@ -7,6 +7,8 @@ use App\Exam;
 use App\Subject;
 use App\Question;
 use App\Choice;
+use App\Answer;
+use Auth;
 
 class ExamController extends Controller
 {
@@ -97,13 +99,67 @@ class ExamController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function show($id)
+    public function show($id ,$q = false)
     {
         //
+
         $exam = Exam::findOrFail($id);
-        return view('home-teacher-exam-preview',[
+
+        if(Auth::user()->hasRole('teacher')){
+            return view('home-teacher-exam-preview',[
+                'exam' => $exam,
+            ]);
+        }
+
+        $question = false;
+        $answers = [];
+        $score = 0;
+        $scoreTotal = 0;
+        if($q){
+            $question = $exam->examQuestions->get($q-1);
+            if(!$question){
+                return redirect()->intended('student/exam/'.$id);
+            }
+
+        }else{
+            $answers = $exam->answers->where('user_id',Auth::id());
+
+
+            foreach ($answers as $key => $answer) {
+
+                $diff = array_diff(
+                    explode(',',$answer->answer),
+                    explode(',',$answer->question->answer)
+                );
+
+                if(count($diff)==0){
+                    $score += $answer->question->score;
+                }
+                $scoreTotal += $answer->question->score;
+
+            }
+        }
+
+        return view('exam',[
             'exam' => $exam,
+            'q' => $q,
+            'question' => $question,
+            'answers' => $answers,
+            'score' => $score,
+            'scoreTotal' => $scoreTotal,
         ]);
+    }
+
+    public function submitAnswer(Request $request,$id,$q){
+
+        Answer::updateOrCreate([
+            'user_id' => Auth::id() ,
+            'question_id' => $request->question ,
+        ],[
+            'answer' => implode(',',$request->answer)
+        ]);
+
+        return redirect()->intended( 'student/exam/'.$id.'/question/' . ($q+1) );
     }
 
     /**
@@ -143,12 +199,12 @@ class ExamController extends Controller
 
         Question::where('exam_id',$e->id)->each(function($ee){
 
-                $choices = $ee->choices();
-                if(count($choices)>0){
-                    $choices->delete();
-                }
+            $choices = $ee->choices();
+            if(count($choices)>0){
+                $choices->delete();
+            }
 
-                $ee->delete();
+            $ee->delete();
 
         });
 
@@ -201,11 +257,11 @@ class ExamController extends Controller
         Exam::findOrFail($id)->delete();
 
         Question::where('exam_id',$id)->each(function($ee){
-                $choices = $ee->choices();
-                if(count($choices)){
-                    $choices->delete();
-                }
-                $ee->delete();
+            $choices = $ee->choices();
+            if(count($choices)){
+                $choices->delete();
+            }
+            $ee->delete();
         });
 
         return back()->with([

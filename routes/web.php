@@ -69,9 +69,14 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth','role:student']], f
     Route::get('/', 'StudentController@home');
     Route::get('/subjects', 'StudentController@subjects');
     Route::get('/subject/{id}/lessons', 'StudentController@subjectLessons');
+
     Route::get('/quiz/{id}', 'QuizController@show');
     Route::get('/quiz/{id}/question/{q}', 'QuizController@show');
     Route::post('/quiz/{id}/question/{q}/submit', 'QuizController@submitAnswer');
+
+    Route::get('/exam/{id}', 'ExamController@show');
+    Route::get('/exam/{id}/question/{q}', 'ExamController@show');
+    Route::post('/exam/{id}/question/{q}/submit', 'ExamController@submitAnswer');
 });
 
 
