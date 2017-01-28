@@ -8,6 +8,8 @@ use App\Subject;
 use App\Question;
 use App\Lesson;
 use App\Choice;
+use App\Answer;
+use Auth;
 
 class QuizController extends Controller
 {
@@ -98,13 +100,66 @@ class QuizController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function show($id)
+    public function show($id,$q = false)
     {
         //
         $quiz = Quiz::findOrFail($id);
-        return view('home-teacher-quiz-preview',[
+        if(Auth::user()->hasRole('teacher')){
+            return view('home-teacher-quiz-preview',[
+                'quiz' => $quiz,
+            ]);
+        }
+
+        $question = false;
+        $answers = [];
+        $score = 0;
+        $scoreTotal = 0;
+        if($q){
+            $question = $quiz->quizQuestions->get($q-1);
+            if(!$question){
+                return redirect()->intended('student/quiz/'.$id);
+            }
+
+        }else{
+            $answers = $quiz->answers->where('user_id',Auth::id());
+
+
+            foreach ($answers as $key => $answer) {
+
+                $diff = array_diff(
+                    explode(',',$answer->answer),
+                    explode(',',$answer->question->answer)
+                );
+
+                if(count($diff)==0){
+                    $score += $answer->question->score;
+                }
+                $scoreTotal += $answer->question->score;
+
+            }
+        }
+
+        return view('quiz',[
             'quiz' => $quiz,
+            'q' => $q,
+            'question' => $question,
+            'answers' => $answers,
+            'score' => $score,
+            'scoreTotal' => $scoreTotal,
         ]);
+
+
+    }
+
+    public function submitAnswer(Request $request,$id,$q){
+
+        Answer::create([
+            'user_id' => Auth::id() ,
+            'question_id' => $request->question ,
+            'answer' => implode(',',$request->answer) ,
+        ]);
+
+        return redirect()->intended( 'student/quiz/'.$id.'/question/' . ($q+1) );
     }
 
     /**

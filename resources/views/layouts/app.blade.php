@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bulma.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/lms.css') }}">
-
+    @stack('styles')
     <!-- Scripts -->
     <script>
     window.Laravel = "{{ json_encode([ 'csrfToken' => csrf_token(), ]) }}";
@@ -92,7 +92,8 @@
             </div>
         </div>
     </section>
-    <script async type="text/javascript" src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    @stack('scripts')
     <script async type="text/javascript" src="{{ asset('js/lms.js') }}"></script>
     <!-- Scripts -->
 </body>

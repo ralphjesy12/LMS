@@ -14,9 +14,10 @@
                     <div class="card-content">
                         <div class="content">
                             <p class="title">Preview Quiz</p>
-                            <p class="subtitle">{{ $quiz->lesson->title }}</p>
-
-                            <label class="label">{{ $quiz->title }}</label>
+                            <p class="subtitle">
+                                Quiz: {{ $quiz->title }}<br>
+                                <small class="label">Lesson : {{ $quiz->lesson->title }}</small>
+                            </p>
                             <p>
                                 {{ $quiz->description }}
                             </p>

@@ -13,7 +13,11 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="content">
-                            <p class="title">Edit Quiz</p>
+                            <p class="title">
+                                Edit Quiz<br>
+                                <small class="subtitle is-6"><a href="{{ url('teacher/quiz/'.$quiz->id) }}">PREVIEW QUIZ</a></small>
+                            </p>
+
                             @if (session('status'))
                                 <div class="notification is-primary">
                                     <button class="delete"></button>
@@ -52,9 +56,9 @@
                                             ?>
                                             @foreach ($subjectGroup as $subject => $lessons)
                                                 <optgroup label="{{ $subject }}">
-                                                @foreach ($lessons as $key => $lesson)
-                                                    <option value="{{ $lesson->id }}" {{ ($lesson->id==$quiz->lesson_id ? 'selected' : '') }}>{{ $lesson->title }}</option>
-                                                @endforeach
+                                                    @foreach ($lessons as $key => $lesson)
+                                                        <option value="{{ $lesson->id }}" {{ ($lesson->id==$quiz->lesson_id ? 'selected' : '') }}>{{ $lesson->title }}</option>
+                                                    @endforeach
                                                 </optgroup>
                                             @endforeach
                                         </select>
@@ -149,3 +153,7 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+
+@endpush
