@@ -66,17 +66,21 @@ Route::resource('exam', 'ExamController',
 Route::get('/subject/{id}/lessons','SubjectController@indexLessons');
 
 Route::group(['prefix' => 'student', 'middleware' => ['auth','role:student']], function() {
-    Route::get('/', 'StudentController@home');
-    Route::get('/subjects', 'StudentController@subjects');
-    Route::get('/subject/{id}/lessons', 'StudentController@subjectLessons');
 
-    Route::get('/quiz/{id}', 'QuizController@show');
-    Route::get('/quiz/{id}/question/{q}', 'QuizController@show');
-    Route::post('/quiz/{id}/question/{q}/submit', 'QuizController@submitAnswer');
+    Route::get  ('/',                               'StudentController@home');
+    Route::get  ('/subjects',                       'StudentController@subjects');
+    Route::get  ('/subject/{id}/lessons',           'StudentController@subjectLessons');
 
-    Route::get('/exam/{id}', 'ExamController@show');
-    Route::get('/exam/{id}/question/{q}', 'ExamController@show');
-    Route::post('/exam/{id}/question/{q}/submit', 'ExamController@submitAnswer');
+    Route::get  ('/quizzes',                        'QuizController@index');
+    Route::get  ('/quiz/{id}',                      'QuizController@show');
+    Route::get  ('/quiz/{id}/question/{q}',         'QuizController@show');
+    Route::post ('/quiz/{id}/question/{q}/submit',  'QuizController@submitAnswer');
+
+    Route::get  ('/exams',                          'ExamController@index');
+    Route::get  ('/exam/{id}',                      'ExamController@show');
+    Route::get  ('/exam/{id}/question/{q}',         'ExamController@show');
+    Route::post ('/exam/{id}/question/{q}/submit',  'ExamController@submitAnswer');
+
 });
 
 

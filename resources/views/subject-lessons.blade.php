@@ -65,14 +65,27 @@
 
                         ?>
                         @if($answers->count())
-                            <p class="subtitle is-6 has-text-centered">
-                                <label class="title is-3">{{ $score }} out of {{ $scoreTotal }} ({{ number_format((($score/$scoreTotal)*100),2) }}%)</label><br>
-                            </p>
-                            <nav class="level">
-                                <a href="#" class="level-item button is-warning is-disabled">
-                                    <span class="icon"><i class="fa fa-check"></i></span><span>You've already taken up this quiz</span>
-                                </a>
+                            @if($answers->count()==$subject->exam->examQuestions->count())
+                                <p class="subtitle is-6 has-text-centered">
+                                    <label class="title is-3">{{ $score }} out of {{ $scoreTotal }} ({{ number_format((($score/$scoreTotal)*100),2) }}%)</label><br>
+                                </p>
+                                <nav class="level">
+
+                                    <a href="#" class="level-item button is-warning is-disabled">
+                                        <span class="icon"><i class="fa fa-check"></i></span><span>You've already taken up this exam</span>
+                                    </a>
+
                                 </nav>
+                            @else
+                                <p class="subtitle is-6 has-text-centered">
+                                    <label class="title is-3">{{ $answers->count() }} out of {{ $subject->exam->examQuestions->count() }} answered</label><br>
+                                </p>
+                                <nav class="level">
+                                    <a href="{{ url('student/exam/'.$subject->exam->id.'/question/' . ($answers->count() + 1)) }}" class="level-item button is-warning">
+                                        <span class="icon"><i class="fa fa-check"></i></span><span>Continue Exam</span>
+                                    </a>
+                                </nav>
+                            @endif
                         @else
                             <p class="subtitle is-6 has-text-centered">
                                 {{ $subject->exam->examQuestions()->count() }} items

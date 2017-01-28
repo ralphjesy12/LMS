@@ -20,8 +20,15 @@ class ExamController extends Controller
     public function index()
     {
         //
+
+        if(Auth::user()->hasRole('student')){
+            return view('home-student-exam',[
+                'exams' => Exam::paginate(12),
+            ]);
+        }
+
         return view('home-teacher-exams',[
-            'exams' => Exam::paginate(8),
+            'exams' => Exam::paginate(12),
             'subjects' => Subject::all()
         ]);
     }

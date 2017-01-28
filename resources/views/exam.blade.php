@@ -29,15 +29,15 @@
                                         <p class="control">
                                             @if(count(explode(',',$question->answer)) > 1)
                                                 <span class="checkbox">
-                                                    <input type="checkbox" name="answer[]" value="{{ $choice->id }}" required/>
+                                                    <input id="choice-{{ $kk }}" type="checkbox" name="answer[]" value="{{ $choice->id }}" required/>
                                                 </span>
                                             @else
                                                 <span class="radio">
-                                                    <input type="radio" name="answer[]" value="{{ $choice->id }}" required/>
+                                                    <input id="choice-{{ $kk }}" type="radio" name="answer[]" value="{{ $choice->id }}" required/>
                                                 </span>
                                             @endif
 
-                                            <span>{{ $choice->content }}</span>
+                                            <label for="choice-{{ $kk }}">{{ $choice->content }}</label>
                                         </p>
                                     </div>
                                 @endforeach

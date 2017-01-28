@@ -21,6 +21,12 @@ class QuizController extends Controller
     public function index()
     {
         //
+        if(Auth::user()->hasRole('student')){
+            return view('home-student-quiz',[
+                'quizzes' => Quiz::paginate(12),
+            ]);
+        }
+
         return view('home-teacher-quizzes',[
             'quizzes' => Quiz::paginate(8),
             'lessons' => Lesson::orderBy('subject_id')->get()->all()
