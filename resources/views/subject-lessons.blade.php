@@ -55,9 +55,45 @@
                                 <div class="media-content">
                                     <div class="content">
                                         <p>
-                                            <strong>{{ $lesson->title }}</strong> <small style="float:right;">{{ $lesson->updated_at->diffForHumans() }}</small>
-                                            <br>
+
+                                            <strong>{{ $lesson->title }}</strong><br>
+                                            <small>{{ $lesson->updated_at->diffForHumans() }}</small><br>
                                             {{ str_limit($lesson->description,200) }}
+
+                                            @if($lesson->quiz->count() && Auth::id())
+                                                <br><br>
+                                                <?php
+                                                $answers = [];
+                                                $score = 0;
+                                                $scoreTotal = 0;
+
+                                                $answers = $lesson->quiz->answers->where('user_id',Auth::id());
+
+                                                ?>
+                                                @if($answers->count())
+                                                    <?php
+                                                    foreach ($answers as $key => $answer) {
+
+                                                        $diff = array_diff(
+                                                            explode(',',$answer->answer),
+                                                            explode(',',$answer->question->answer)
+                                                        );
+
+                                                        if(count($diff)==0){
+                                                            $score += $answer->question->score;
+                                                        }
+                                                        $scoreTotal += $answer->question->score;
+
+                                                    }
+                                                    ?>
+                                                    <label class="tag is-success">You scored {{ $score }} out of {{ $scoreTotal }} ({{ number_format((($score/$scoreTotal)*100),2) }}%) last {{ $answers->last()->updated_at->diffForHumans() }}</label>
+                                                @else
+                                                    <label class="tag is-info">Quiz of {{ $lesson->quiz->quizQuestions->count() }} items</label>
+                                                @endif
+                                            @else
+                                                <br><br>
+                                                <label class="tag is-info">Quiz of {{ $lesson->quiz->quizQuestions->count() }} items</label>
+                                            @endif
                                         </p>
                                     </div>
                                 </div>
