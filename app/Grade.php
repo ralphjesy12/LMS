@@ -15,7 +15,7 @@ class Grade extends Model
     ];
 
     public function subject(){
-        return $this->hasOne('App\Subject');
+        return $this->belongsTo('App\Subject');
     }
 
     public function student(){

@@ -155,9 +155,13 @@ class ParentController extends Controller
 
     public function home()
     {
+        $child = UserInfo::where([
+            'key' => 'parent',
+            'value' => Auth::id()
+            ])->first()->value('user_id');
 
         return view('home-parent',[
-            'subjects' => Subject::all(),
+            'student' => User::findOrFail($child),
             'activities' => Auth::user()->activities()->latest('updated_at')->paginate(10)
         ]);
     }

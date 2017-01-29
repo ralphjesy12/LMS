@@ -18,13 +18,12 @@
                         height: 500px;
                     }
                     </style>
-
                     <!-- Resources -->
-                    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-                    <script src="https://www.amcharts.com/lib/3/radar.js"></script>
-                    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-                    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-                    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+                    <script src="/amcharts/amcharts.js"></script>
+                    <script src="/amcharts/radar.js"></script>
+                    <script src="/amcharts/plugins/export/export.min.js"></script>
+                    <link rel="stylesheet" href="/amcharts/plugins/export/export.css" type="text/css" media="all" />
+                    <script src="/amcharts/themes/light.js"></script>
 
                     <!-- Chart code -->
                     <script>
@@ -33,42 +32,20 @@
                         "theme": "light",
                         "dataProvider": <?php
 
-                            echo json_encode($subjects->map(function($s,$k){
-
-                                $answers = [];
-                                $score = 0;
-                                $scoreTotal = 0;
-
-                                $answers = $s->exam->answers->where('user_id',Auth::id());
-                                foreach ($answers as $key => $answer):
-
-                                $diff = array_diff(
-                                    explode(',',$answer->answer),
-                                    explode(',',$answer->question->answer)
-                                );
-
-                                if(count($diff)==0){
-                                    $score += $answer->question->score;
-                                }
-                                $scoreTotal += $answer->question->score;
-                                endforeach;
-
+                            echo json_encode($student->grade->map(function($g){
                                 return [
-                                    'title' => str_limit($s->title,20),
-                                    'score' => $score ?: false,
-                                    'scoreTotal' => $scoreTotal
+                                    'grade' => $g->grade,
+                                    'title' => str_limit($g->subject->title,20)
                                 ];
-                            })->filter(function ($s, $key) {
-                                return $s['score'] != 0;
-                            })->values()->all());
+                            })->all());
                             ?>,
                             "startDuration": 0,
                             "graphs": [ {
-                                "balloonText": "[[value]] out of [[scoreTotal]]",
+                                "balloonText": "[[value]]%",
                                 "bullet": "round",
                                 "lineThickness": 2,
                                 "fillAlphas": 0.3,
-                                "valueField": "score"
+                                "valueField": "grade"
                             } ],
                             "categoryField": "title",
                             "export": {
@@ -79,7 +56,7 @@
 
                         <!-- HTML -->
                         <div class="content">
-                            <h3 class="is-block has-text-centered">Exam scores per Subject</h3>
+                            <h3 class="is-block has-text-centered">Student Grades per Subject</h3>
                             <div id="chartdiv"></div>
                         </div>
                     </div>
