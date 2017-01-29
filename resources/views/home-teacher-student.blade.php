@@ -37,12 +37,15 @@
                                     </p>
                                 </div>
                                 <div class="column">
-                                    @if($student->parent)
-                                        <p>
+                                    <p>
+                                        @if($student->parent)
                                             <label><strong>Parent&apos;s Name</strong> : {{ $student->parent->name }}</label><br>
-                                            <label><strong>Parent&apos;s Email</strong> : {{ $student->parent->email }}</label>
-                                        </p>
-                                    @endif
+                                            <label><strong>Parent&apos;s Email</strong> : {{ $student->parent->email }}</label><br>
+                                        @endif
+                                        @if($student->grade()->count())
+                                            <label><strong>Final Grade</strong> : {{  number_format($student->grade()->avg('grade'),2) }}%</label>
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -67,6 +70,10 @@
                                         <small>&nbsp;ADD PARENT</small>
                                     </a>
                                 @endif
+                                <a href="{{ url('teacher/student/'. $student->id . '/grades/edit') }}" class="level-item has-icon">
+                                    <span class="icon is-small"><i class="fa fa-bar-chart-o"></i></span>
+                                    <small>&nbsp;EDIT GRADES</small>
+                                </a>
                             </div>
                         </nav>
                     </div>

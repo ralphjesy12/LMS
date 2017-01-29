@@ -27,24 +27,24 @@ Parents can view his/her children’s scores in quizzes, as well as the grade in
 ## Features
 
 #### Student Module
-- [OK]Can take lessons from different subjects
-- [OK]Can take quiz after the lesson
-- [OK]Can take exam
+- [OK] Can take lessons from different subjects
+- [OK] Can take quiz after the lesson
+- [OK] Can take exam
 - Can view videos
 - Can view grades
 
 #### Parents Module
 - Can view child’s grade
-- Can view child’s lesson
+- [OK] Can view child’s lesson
 - Can add comment
 
 #### Teachers Module
-- [OK]Can add lessons
+- [OK] Can add lessons
 - Can upload videos
-- [OK]Can upload exams
-- [OK]Can upload quizzes
+- [OK] Can upload exams
+- [OK] Can upload quizzes
 - Can view parents comment
-- Can add students grades
+- [OK] Can add students grades
 
 #### Principal Module
 - View teachers lesson

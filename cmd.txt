@@ -8,6 +8,7 @@ php artisan make:model Choice --migration
 php artisan make:model Answer --migration
 php artisan make:model Activity --migration
 php artisan make:model UserInfo --migration
+php artisan make:model Grade --migration
 
 
 php artisan make:controller SubjectController --resource

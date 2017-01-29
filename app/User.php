@@ -36,4 +36,7 @@ class User extends Authenticatable
     public function infos(){
         return $this->hasMany('App\UserInfo');
     }
+    public function grade(){
+        return $this->hasMany('App\Grade');
+    }
 }

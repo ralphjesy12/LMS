@@ -137,5 +137,8 @@ Route::group(['prefix' => 'teacher', 'middleware' => ['auth','role:teacher']], f
     Route::post ('/student/{id}/parent/update',     'ParentController@update');
     // Route::get  ('/student/{id}/parent/delete',     'StudentController@destroy');
 
+    Route::get  ('/student/{id}/grades/edit',       'GradeController@edit');
+    Route::post  ('/student/{id}/grades/save',       'GradeController@update');
+
 
 });
