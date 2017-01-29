@@ -71,6 +71,7 @@
                                 </p>
 
                                 <?php
+
                                 $answers = [];
                                 $score = 0;
                                 $scoreTotal = 0;
@@ -97,10 +98,12 @@
                                         <label class="title is-3">{{ $score }} out of {{ $scoreTotal }} ({{ number_format((($score/$scoreTotal)*100),2) }}%)</label><br>
                                     </p>
                                     <nav class="level">
-                                        <a href="#" class="level-item button is-warning is-disabled">
-                                            <span class="icon"><i class="fa fa-check"></i></span><span>You've already taken up this quiz</span>
-                                        </a>
-                                        </nav>
+                                        @if(Auth::user() && Auth::user()->hasRole('student'))
+                                            <a href="#" class="level-item button is-warning is-disabled">
+                                                <span class="icon"><i class="fa fa-check"></i></span><span>You've already taken up this quiz</span>
+                                            </a>
+                                        @endif
+                                    </nav>
                                 @else
                                     <p class="subtitle is-6 has-text-centered">
                                         {{ $quiz->quizQuestions()->count() }} items
@@ -111,10 +114,10 @@
                                             <a href="{{ url('teacher/quiz/' . $quiz->id . '/edit ') }}" target="_blank" class="level-item button is-primary">
                                                 <span class="icon"><i class="fa fa-pencil"></i></span><span>Edit Quiz</span>
                                             </a>
-                                        @else
-                                            <a href="{{ url('student/quiz/' . $quiz->id) }}" class="level-item button is-primary">
-                                                <span class="icon"><i class="fa fa-check"></i></span><span>Start Quiz Now</span>
-                                            </a>
+                                        @elseif(Auth::user() && Auth::user()->hasRole('student'))
+                                                <a href="{{ url('student/quiz/' . $quiz->id) }}" class="level-item button is-primary">
+                                                    <span class="icon"><i class="fa fa-check"></i></span><span>Start Quiz Now</span>
+                                                </a>
                                         @endif
                                     </nav>
                                 @endif

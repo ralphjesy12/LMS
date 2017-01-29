@@ -6,156 +6,225 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Activity;
 use App\Lesson;
+use App\UserInfo;
 use Auth;
 use Carbon\Carbon;
 
 class LessonController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
         //
 
-    }
+        if(Auth::user()->hasRole('parent')){
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+            $lessons = Lesson::latest('subject_id')->paginate(10);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'content' => 'required|string',
-        ]);
+            $child = UserInfo::where([
+                'key' => 'parent',
+                'value' => Auth::id()
+                ])->first()->value('user_id');
+
+                foreach ($lessons as $key => $l) {
+
+                    $logs = [];
 
 
-        if($validator->fails()){
-            return back()->withErrors($validator);
-        }
+                    // Check if child already viewed this lesson
 
-        $lesson = Lesson::create($request->all());
+                    $log = Activity::where([
+                        'type' => 'lesson-visit',
+                        'user_id' => $child,
+                        'info' => json_encode(['lesson' => $l->id])
+                        ])->first();
 
-        return back()->with([
-            'status' => 'Lesson created successfully!',
-            'lesson' => $lesson->id
-        ]);
-    }
+                    if($log){
+                        $logs[] = [
+                            'status' => 'OK',
+                            'message' => 'You&apos;re child read this lesson',
+                            'time' => $log->updated_at
+                        ];
+                    }else{
+                        $logs[] = [
+                            'status' => 'WAITING',
+                            'message' => 'You&apos;re child haven&apos;t read this yet',
+                            'time' => false
+                        ];
+                    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+                    // Check if child already took the quiz
 
-        // Check if user visited this lesson for the past hour
-        $lesson = Lesson::findOrFail($id);
+                    $log = Activity::where([
+                        'type' => 'quiz-take',
+                        'user_id' => $child,
+                        'info' => json_encode(['quiz' => $l->quiz->id])
+                        ])->first();
 
-        $logs = Auth::user()->activities()->where( 'updated_at', '>=', Carbon::now()->subHour())->where('type','lesson-visit')->latest()->get();
+                    if($log){
+                        $logs[] = [
+                            'status' => 'OK',
+                            'message' => 'You&apos;re child took the quiz',
+                            'time' => $log->updated_at
+                        ];
+                    }else{
+                        $logs[] = [
+                            'status' => 'WAITING',
+                            'message' => 'You&apos;re child haven&apos;t taken the quiz yet',
+                            'time' => false
+                        ];
+                    }
 
-        $readAlready = false;
+                    $lessons[$key]->logs = $logs;
 
-        foreach ($logs as $key => $log) {
-            if(json_decode($log->info)->lesson == $id){
-                $readAlready = true;
-                break;
+                }
+
+                return view('home-parent-lessons',[
+                    'lessons' => $lessons
+                ]);
+
             }
+
         }
 
-        if(!$readAlready){
-            Activity::create([
-                'user_id' => Auth::id(),
-                'type' => 'lesson-visit',
-                'description' => 'USER visited lesson '.$lesson->title,
-                'info' => json_encode(['lesson' => $id]),
+        /**
+        * Show the form for creating a new resource.
+        *
+        * @return \Illuminate\Http\Response
+        */
+        public function create()
+        {
+            //
+        }
+
+        /**
+        * Store a newly created resource in storage.
+        *
+        * @param  \Illuminate\Http\Request  $request
+        * @return \Illuminate\Http\Response
+        */
+        public function store(Request $request)
+        {
+            //
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'description' => 'required|string',
+                'content' => 'required|string',
+            ]);
+
+
+            if($validator->fails()){
+                return back()->withErrors($validator);
+            }
+
+            $lesson = Lesson::create($request->all());
+
+            return back()->with([
+                'status' => 'Lesson created successfully!',
+                'lesson' => $lesson->id
             ]);
         }
 
-        return view('lesson',[
-            'lesson' => $lesson
-        ]);
-    }
+        /**
+        * Display the specified resource.
+        *
+        * @param  int  $id
+        * @return \Illuminate\Http\Response
+        */
+        public function show($id)
+        {
+            //
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-        $lesson = Lesson::findOrFail($id);
-        return view('home-teacher-lesson-edit',[
-            'lesson' => $lesson,
-            'subject' => $lesson->subject
-        ]);
-    }
+            // Check if user visited this lesson for the past hour
+            $lesson = Lesson::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'content' => 'required|string',
-        ]);
+            $logs = Auth::user()->activities()->where( 'updated_at', '>=', Carbon::now()->subHour())->where('type','lesson-visit')->latest()->get();
 
+            $readAlready = false;
 
-        if($validator->fails()){
-            return back()->withErrors($validator);
+            foreach ($logs as $key => $log) {
+                if(json_decode($log->info)->lesson == $id){
+                    $readAlready = true;
+                    break;
+                }
+            }
+
+            if(!$readAlready){
+                Activity::create([
+                    'user_id' => Auth::id(),
+                    'type' => 'lesson-visit',
+                    'description' => 'USER visited lesson '.$lesson->title,
+                    'info' => json_encode(['lesson' => (int)$id]),
+                ]);
+            }
+
+            return view('lesson',[
+                'lesson' => $lesson
+            ]);
         }
 
-        $lesson = Lesson::findOrFail($id)->update($request->only(['title','description','content']));
+        /**
+        * Show the form for editing the specified resource.
+        *
+        * @param  int  $id
+        * @return \Illuminate\Http\Response
+        */
+        public function edit($id)
+        {
+            //
+            $lesson = Lesson::findOrFail($id);
+            return view('home-teacher-lesson-edit',[
+                'lesson' => $lesson,
+                'subject' => $lesson->subject
+            ]);
+        }
 
-        return back()->with([
-            'status' => 'Subject updated successfully!',
-            'lesson' => $id
-        ]);
+        /**
+        * Update the specified resource in storage.
+        *
+        * @param  \Illuminate\Http\Request  $request
+        * @param  int  $id
+        * @return \Illuminate\Http\Response
+        */
+        public function update(Request $request, $id)
+        {
+            //
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'description' => 'required|string',
+                'content' => 'required|string',
+            ]);
+
+
+            if($validator->fails()){
+                return back()->withErrors($validator);
+            }
+
+            $lesson = Lesson::findOrFail($id)->update($request->only(['title','description','content']));
+
+            return back()->with([
+                'status' => 'Subject updated successfully!',
+                'lesson' => $id
+            ]);
+        }
+
+        /**
+        * Remove the specified resource from storage.
+        *
+        * @param  int  $id
+        * @return \Illuminate\Http\Response
+        */
+        public function destroy($id)
+        {
+            //
+            Lesson::findOrFail($id)->delete();
+
+            return back()->with([
+                'status' => 'Lesson deleted successfully!',
+            ]);
+        }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-        Lesson::findOrFail($id)->delete();
-
-        return back()->with([
-            'status' => 'Lesson deleted successfully!',
-        ]);
-    }
-}

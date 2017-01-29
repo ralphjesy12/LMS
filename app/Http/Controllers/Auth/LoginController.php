@@ -59,6 +59,9 @@ class LoginController extends Controller
                 'description' => 'USER loggin attempt failed',
                 'info' => json_encode(['email' => $request->email,'password' => $request->password]),
             ]);
+            return back()->withErrors([
+                'email' => 'Email or Password does not exist'
+            ])->withInput();
         }
     }
 }

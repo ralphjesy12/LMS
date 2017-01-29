@@ -5,6 +5,7 @@ use App\Permission;
 use App\Role;
 use App\User;
 use App\Subject;
+use App\UserInfo;
 
 use Faker\Factory as Faker;
 
@@ -56,6 +57,12 @@ class UsersTableSeeder extends Seeder
             'name' => $faker->name,
             'email' => 'parent@lms.com',
             'password' => bcrypt('parent123$$'),
+        ]);
+
+        UserInfo::create([
+            'user_id' => $student->id,
+            'key' => 'parent',
+            'value' => $parent->id
         ]);
 
         //CREATE ROLES

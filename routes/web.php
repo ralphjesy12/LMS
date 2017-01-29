@@ -66,6 +66,13 @@ Route::resource('exam', 'ExamController',
 
 Route::get('/subject/{id}/lessons','SubjectController@indexLessons');
 
+Route::group(['prefix' => 'parent', 'middleware' => ['auth','role:parent']], function() {
+
+    Route::get  ('/',                               'ParentController@home');
+    Route::get  ('/lessons',                        'LessonController@index');
+
+});
+
 Route::group(['prefix' => 'student', 'middleware' => ['auth','role:student']], function() {
 
     Route::get  ('/',                               'StudentController@home');

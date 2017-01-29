@@ -156,7 +156,7 @@ class ParentController extends Controller
     public function home()
     {
 
-        return view('home-student',[
+        return view('home-parent',[
             'subjects' => Subject::all(),
             'activities' => Auth::user()->activities()->latest('updated_at')->paginate(10)
         ]);
