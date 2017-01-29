@@ -16,12 +16,6 @@
                     where learning can be FUN
                 </h2>
                 <br>
-                <p class="control has-addons has-text-centered">
-                    <input class="input is-expanded is-large" type="text" placeholder="Enroll your kids now, you@example.org">
-                    <a class="button is-large is-danger is-outlined">
-                        Sign Up
-                    </a>
-                </p>
             </div>
         </div>
     </div>

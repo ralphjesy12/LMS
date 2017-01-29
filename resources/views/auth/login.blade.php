@@ -36,11 +36,11 @@
                         <button class="button is-default" type="reset">Cancel</button>
                     </p>
                 </form>
-                <p class="has-text-centered">
+                {{-- <p class="has-text-centered">
                     <a href="{{ url('register') }}">Register an Account</a>
                     |
                     <a href="{{ url('/password/reset') }}">Forgot password</a>
-                </p>
+                </p> --}}
             </div>
         </div>
     </div>

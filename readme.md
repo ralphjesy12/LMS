@@ -31,10 +31,10 @@ Parents can view his/her children’s scores in quizzes, as well as the grade in
 - [OK] Can take quiz after the lesson
 - [OK] Can take exam
 - Can view videos
-- Can view grades
+- [OK]Can view grades
 
 #### Parents Module
-- Can view child’s grade
+- [OK]Can view child’s grade
 - [OK] Can view child’s lesson
 - Can add comment
 

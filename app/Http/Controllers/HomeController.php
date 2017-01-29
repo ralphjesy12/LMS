@@ -28,7 +28,7 @@ class HomeController extends Controller
         if(Auth::user()->hasRole('student')) return redirect()->intended('subjects');
         if(Auth::user()->hasRole('parent')) return redirect()->intended('parent');
 
-        return view('home-student');
+        return redirect()->intended('subjects');
     }
 
 

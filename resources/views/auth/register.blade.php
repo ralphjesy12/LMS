@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    <script>
+    window.location.assign('/');
+    </script>
     <div class="container">
         <div class="columns is-vcentered">
             <div class="column is-4 is-offset-4">

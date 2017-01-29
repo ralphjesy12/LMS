@@ -40,15 +40,6 @@
                             <a href="{{ route('subjects.index') }}"  class="nav-item">
                                 Subjects
                             </a>
-                            <a class="nav-item">
-                                Tour
-                            </a>
-                            <a class="nav-item">
-                                FAQ
-                            </a>
-                            <a class="nav-item">
-                                Contact
-                            </a>
 
                             @if (Auth::guest())
                                 <span class="nav-item">
@@ -57,7 +48,7 @@
                                     </a>
                                 </span>
                             @else
-                                
+
                                 @if(Auth::user()->hasRole('student'))
                                     <a href="/student" class="nav-item">
                                         Hi, {{ Auth::user()->name }} !

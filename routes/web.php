@@ -33,17 +33,6 @@ Route::group(['middleware' => ['auth']], function () {
     ]);
 });
 
-
-//
-// Route::group(['middleware' => ['auth','role:student']], function () {
-//     Route::get('/home/subjects', 'StudentController@subjects');
-// });
-// Route::group(['middleware' => ['auth','role:teacher']], function () {
-//     Route::get('/home/subjects', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjects']);
-//     Route::get('/home/subject/{id}', ['middleware' => ['role:teacher'], 'uses' => 'TeacherController@subjectView']);
-// });
-
-
 Route::resource('subjects', 'SubjectController',
 [
     'only' => [

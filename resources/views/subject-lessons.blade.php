@@ -175,10 +175,6 @@
                                         <a href="{{ url('student/exam/' . $subject->exam->id) }}" class="level-item button is-primary">
                                             <span class="icon"><i class="fa fa-check"></i></span><span>Start Exam Now</span>
                                         </a>
-                                    @else
-                                        <a href="#" class="level-item button is-warning is-disabled">
-                                            <span class="icon"><i class="fa fa-warning"></i></span><span>Your child haven&apos; taken up this exam</span>
-                                        </a>
                                     @endif
                                 @endif
                             </nav>
