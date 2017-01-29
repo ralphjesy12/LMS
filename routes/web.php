@@ -70,6 +70,7 @@ Route::group(['prefix' => 'parent', 'middleware' => ['auth','role:parent']], fun
 
     Route::get  ('/',                               'ParentController@home');
     Route::get  ('/lessons',                        'LessonController@index');
+    Route::get  ('/grades',                         'GradeController@index');
 
 });
 
@@ -88,6 +89,8 @@ Route::group(['prefix' => 'student', 'middleware' => ['auth','role:student']], f
     Route::get  ('/exam/{id}',                      'ExamController@show');
     Route::get  ('/exam/{id}/question/{q}',         'ExamController@show');
     Route::post ('/exam/{id}/question/{q}/submit',  'ExamController@submitAnswer');
+
+    Route::get  ('/grades',                          'GradeController@index');
 
 });
 
