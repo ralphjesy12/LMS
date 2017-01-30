@@ -215,5 +215,17 @@ jQuery(function($){
             });
         });
     }
-    
+
+    $('button.delete').click(function(e) {
+        e.preventDefault();
+
+        $(this).parent().remove();
+    });
+
+    $('.modal-background,.modal-close').click(function(e){
+        e.preventDefault();
+
+        $(this).closest('.modal').removeClass('is-active');
+    });
+
 });

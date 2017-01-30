@@ -23,4 +23,7 @@ class Lesson extends Model
     public function quiz(){
         return $this->hasOne('App\Quiz');
     }
+    public function uploads(){
+        return $this->hasMany('App\Upload');
+    }
 }

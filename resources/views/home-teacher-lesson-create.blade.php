@@ -31,7 +31,7 @@
                                 </div>
                             @else
 
-                                <form action="{{ route('lesson.store') }}" method="post">
+                                <form action="{{ route('lesson.store') }}" method="post" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <label class="label">Title *</label>
                                     <input type="hidden" name="subject_id" value="{{ $subject->id }}"/>
@@ -49,8 +49,13 @@
                                     </p>
                                     <label class="label">Video *</label>
                                     <p class="control">
-                                        <input type="file" placeholder="Select a video"/>
+                                        <input type="file" name="video" placeholder="Select a video"/>
                                     </p>
+                                    <label class="label">Photo *</label>
+                                    <p class="control has-addons">
+                                        <input name="photo[]" type="file" multiple />
+                                    </p>
+
                                     <div class="control is-grouped is-pulled-right" >
                                         <p class="control">
                                             <a href="{{ url('home/subjects') }}" class="button is-link">Go Back</a>

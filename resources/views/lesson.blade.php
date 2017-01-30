@@ -115,9 +115,9 @@
                                                 <span class="icon"><i class="fa fa-pencil"></i></span><span>Edit Quiz</span>
                                             </a>
                                         @elseif(Auth::user() && Auth::user()->hasRole('student'))
-                                                <a href="{{ url('student/quiz/' . $quiz->id) }}" class="level-item button is-primary">
-                                                    <span class="icon"><i class="fa fa-check"></i></span><span>Start Quiz Now</span>
-                                                </a>
+                                            <a href="{{ url('student/quiz/' . $quiz->id) }}" class="level-item button is-primary">
+                                                <span class="icon"><i class="fa fa-check"></i></span><span>Start Quiz Now</span>
+                                            </a>
                                         @endif
                                     </nav>
                                 @endif
@@ -127,21 +127,44 @@
                     <div class="tile is-parent">
                         <article class="tile is-child notification is-primary">
                             <p class="title">Photos</p>
-                            <div class="columns is-multiline">
-                                @for ($i=0; $i < 9 ; $i++)
-                                    <div class="column is-4">
-                                        <figure class="image is-1by1">
-                                            <a href="#">
-                                                <img src="http://bulma.io/images/placeholders/64x64.png">
-                                            </a>
-                                        </figure>
-                                    </div>
-                                @endfor
-                            </div>
+                            @if(count($lesson->uploads->where('type','=','image'))==0)
+                                <h2 class="subtitle is-block has-text-centered">No Images Yet</h2>
+                            @else
+                                <div class="columns is-multiline">
+                                    @foreach ($lesson->uploads->where('type','=','image') as $key => $image)
+                                        <div class="column is-4">
+                                            <figure class="image is-1by1 lesson-image">
+                                                <img src="{{ asset($image->path) }}">
+                                            </figure>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         </article>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <p class="image">
+                <img src="">
+            </p>
+        </div>
+        <button class="modal-close"></button>
+    </div>
 @endsection
+
+@push('scripts')
+    <script>
+    jQuery(function($){
+        $('.image.lesson-image').click(function(e){
+            e.stopImmediatePropagation();
+            $('.modal img').attr('src',$(this).find('img').attr('src'));
+            $('.modal').toggleClass('is-active');
+        });
+    });
+    </script>
+@endpush
