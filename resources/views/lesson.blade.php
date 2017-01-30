@@ -48,15 +48,18 @@
             </div>
             <div class="tile">
                 <div class="tile is-vertical">
-                    <div class="tile is-parent">
-                        <article class="tile is-child notification is-danger">
-                            <p class="title">Watch Video</p>
-                            <p class="subtitle">Video Title</p>
-                            <figure class="image is-4by3">
-                                <img src="http://bulma.io/images/placeholders/640x480.png">
-                            </figure>
-                        </article>
-                    </div>
+                    @if($lesson->uploads->where('type','=','video')->count())
+                        <div class="tile is-parent">
+                            <article class="tile is-child notification is-danger">
+                                <p class="title">Watch Video</p>
+                                <?php
+                                $url = preg_replace("/\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$lesson->uploads->where('type','=','video')->first()->value('path'));
+
+                                echo $url;
+                                ?>
+                            </article>
+                        </div>
+                    @endif
                     <?php
                     $quiz = $lesson->quiz;
                     ?>

@@ -49,7 +49,7 @@
                                     </p>
                                     <label class="label">Video *</label>
                                     <p class="control">
-                                        <input type="file" name="video" placeholder="Select a video"/>
+                                        <input type="text" name="video" placeholder="Youtube Video URL e.g. https://www.youtube.com/watch?v=-Nc0wCrkk00"/>
                                     </p>
                                     <label class="label">Photo *</label>
                                     <p class="control has-addons">

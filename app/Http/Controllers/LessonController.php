@@ -144,6 +144,15 @@ class LessonController extends Controller
 
                     }
 
+                    if($request->has('video')){
+                        Upload::updateOrCreate([
+                            'type' => 'video',
+                            'lesson_id' => $id,
+                        ],[
+                            'path' => $request->video,
+                        ]);
+                    }
+
                     return back()->with([
                         'status' => 'Lesson created successfully!',
                         'lesson' => $lesson->id
@@ -241,26 +250,35 @@ class LessonController extends Controller
 
                     // Add New Photos
 
-                        $photos = $request->file('photo');
-                        if($photos){
-                            foreach ($photos as $key => $photo) {
-                                $imgPath = 'img/uploads/lesson-'.str_pad($id, 4, "0", STR_PAD_LEFT).str_random(5).'.jpg';
+                    $photos = $request->file('photo');
+                    if($photos){
+                        foreach ($photos as $key => $photo) {
+                            $imgPath = 'img/uploads/lesson-'.str_pad($id, 4, "0", STR_PAD_LEFT).str_random(5).'.jpg';
 
-                                $img = Image::make($photo->getRealPath())
-                                ->resize(1024, 768, function ($constraint) {
-                                    $constraint->aspectRatio();
-                                    $constraint->upsize();
-                                })
-                                ->save($imgPath);
+                            $img = Image::make($photo->getRealPath())
+                            ->resize(1024, 768, function ($constraint) {
+                                $constraint->aspectRatio();
+                                $constraint->upsize();
+                            })
+                            ->save($imgPath);
 
-                                Upload::create([
-                                    'type' => 'image',
-                                    'lesson_id' => $id,
-                                    'path' => $imgPath,
-                                ]);
+                            Upload::create([
+                                'type' => 'image',
+                                'lesson_id' => $id,
+                                'path' => $imgPath,
+                            ]);
 
-                            }
                         }
+                    }
+
+                    if($request->has('video')){
+                        Upload::updateOrCreate([
+                            'type' => 'video',
+                            'lesson_id' => $id,
+                        ],[
+                            'path' => $request->video,
+                        ]);
+                    }
 
 
                     return back()->with([

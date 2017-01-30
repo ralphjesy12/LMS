@@ -49,7 +49,14 @@
                                 </p>
                                 <label class="label">Video *</label>
                                 <p class="control">
-                                    <input type="file" placeholder="Select a video"/>
+
+                                    @if(count($lesson->uploads->where('type','=','video')))
+                                        <input class="input" type="text" name="video" placeholder="Youtube Video URL e.g. https://www.youtube.com/watch?v=-Nc0wCrkk00" value="{{ $lesson->uploads->where('type','=','video')->first()->path }}"/>   
+                                    @else
+                                        <input class="input" type="text" name="video" placeholder="Youtube Video URL e.g. https://www.youtube.com/watch?v=-Nc0wCrkk00" value=""/>
+                                    @endif
+
+
                                 </p>
                                 <label class="label">Photo *</label>
                                 <div class="columns is-multiline">
@@ -104,5 +111,5 @@
         </div>
     </div>
 
-    
+
 @endsection
