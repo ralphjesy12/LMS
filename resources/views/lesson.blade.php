@@ -43,7 +43,9 @@
                                 {{ $lesson->content }}
                             </p>
                         </article>
+
                     </div>
+
                 </div>
             </div>
             <div class="tile">
@@ -148,6 +150,33 @@
                 </div>
             </div>
         </div>
+
+        @if(Auth::user() && Auth::user()->hasRole('parent'))
+            <div class="tile is-parent">
+                <div class="tile is-child box">
+                    <article class="media">
+                        <figure class="media-left">
+                            <p class="image is-64x64">
+                                <img src="http://placehold.it/128x128">
+                            </p>
+                        </figure>
+                        <div class="media-content">
+                            <p class="control">
+                                <textarea class="textarea" placeholder="Add a comment..."></textarea>
+                            </p>
+                            <nav class="level">
+                                <div class="level-left">
+                                    <div class="level-item">
+                                        <a class="button is-info">Post comment</a>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        @endif
+
     </div>
     <div class="modal">
         <div class="modal-background"></div>

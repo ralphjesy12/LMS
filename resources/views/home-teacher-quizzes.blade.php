@@ -61,10 +61,12 @@
                                     $subjectGroup = [];
 
                                     foreach ($lessons as $key => $lesson) {
-                                        if(!isset($subjectGroup[$lesson->subject->title])){
-                                            $subjectGroup[$lesson->subject->title] = [];
+                                        if(isset($lesson->subject)){
+                                            if(!isset($subjectGroup[$lesson->subject->title])){
+                                                $subjectGroup[$lesson->subject->title] = [];
+                                            }
+                                            $subjectGroup[$lesson->subject->title][] = $lesson;
                                         }
-                                        $subjectGroup[$lesson->subject->title][] = $lesson;
                                     }
                                     ?>
                                     @foreach ($subjectGroup as $subject => $lessons)

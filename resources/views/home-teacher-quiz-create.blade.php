@@ -44,10 +44,12 @@
                                             $subjectGroup = [];
 
                                             foreach ($lessons as $key => $lesson) {
-                                                if(!isset($subjectGroup[$lesson->subject->title])){
-                                                    $subjectGroup[$lesson->subject->title] = [];
+                                                if(isset($lesson->subject)){
+                                                    if(!isset($subjectGroup[$lesson->subject->title])){
+                                                        $subjectGroup[$lesson->subject->title] = [];
+                                                    }
+                                                    $subjectGroup[$lesson->subject->title][] = $lesson;
                                                 }
-                                                $subjectGroup[$lesson->subject->title][] = $lesson;
                                             }
                                             ?>
                                             @foreach ($subjectGroup as $subject => $lessons)
@@ -116,7 +118,7 @@
                                 </p>
                                 <div class="control is-grouped is-pulled-right" >
                                     <p class="control">
-                                        <a href="{{ url('home/subjects') }}" class="button is-link">Go Back</a>
+                                        <a href="{{ url()->previous() }}" class="button is-link">Go Back</a>
                                     </p>
                                 </div>
                                 <div class="control is-grouped">

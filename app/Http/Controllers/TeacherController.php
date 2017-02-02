@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Auth;
+use DB;
 use App\Subject;
+use App\Lesson;
+use App\User;
+use Illuminate\Support\Facades\View;
 
 class TeacherController extends Controller
 {
@@ -15,9 +20,11 @@ class TeacherController extends Controller
     */
     public function __construct()
     {
+
         if (!Auth::check()) {
             return redirect()->intended('teacher/login');
         }
+
     }
 
     /**
@@ -27,6 +34,8 @@ class TeacherController extends Controller
     */
     public function home()
     {
+
+
         return view('home-teacher');
     }
 
