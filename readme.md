@@ -30,20 +30,20 @@ Parents can view his/her children’s scores in quizzes, as well as the grade in
 - [OK] Can take lessons from different subjects
 - [OK] Can take quiz after the lesson
 - [OK] Can take exam
-- Can view videos
-- [OK]Can view grades
+- [OK] Can view videos
+- [OK] Can view grades
 
 #### Parents Module
-- [OK]Can view child’s grade
+- [OK] Can view child’s grade
 - [OK] Can view child’s lesson
-- Can add comment
+- [OK] Can add comment
 
 #### Teachers Module
 - [OK] Can add lessons
-- Can upload videos
+- [OK] Can upload videos
 - [OK] Can upload exams
 - [OK] Can upload quizzes
-- Can view parents comment
+- [OK] Can view parents comment
 - [OK] Can add students grades
 
 #### Principal Module

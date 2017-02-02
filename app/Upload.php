@@ -12,5 +12,6 @@ class Upload extends Model
         'lesson_id',
         'type',
         'path',
+        'description',
     ];
 }

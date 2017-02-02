@@ -33,7 +33,7 @@ class StudentController extends Controller
     {
         $users = User::whereHas('roles',function($q){
             $q->where('display_name','=','student');
-        })->latest('updated_at')->paginate(10);
+        })->orderby('name','ASC')->paginate(10);
 
         foreach ($users as $key => $u) {
             $users[$key]->parent = User::find($u->infos()->where('key','parent')->value('value'));

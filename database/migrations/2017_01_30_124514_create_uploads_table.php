@@ -17,6 +17,7 @@ class CreateUploadsTable extends Migration
             $table->increments('id');
             $table->integer('lesson_id');
             $table->string('type');
+            $table->text('description')->nullable();
             $table->text('path');
             $table->timestamps();
         });

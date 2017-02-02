@@ -231,10 +231,16 @@ class LessonController extends Controller
 
         $currentPhotos = Lesson::findOrFail($id)->uploads->where('type','=','image');
         foreach ($currentPhotos as $key => $photo) {
-            if(!in_array($photo->id,$request->photoSave ?: [])){
+
+            $photoId = array_search($photo->id,$request->photoSave ?: []);
+            if($photoId===FALSE){
                 // Delete Photo
                 unlink(public_path($photo->path));
                 $photo->delete();
+            }else{
+                $photo->update([
+                    'description' => $request->photoDesc[$photoId]
+                ]);
             }
         }
 
@@ -262,12 +268,14 @@ class LessonController extends Controller
         }
 
         if($request->has('video')){
-            Upload::updateOrCreate([
+            $videoID = Upload::updateOrCreate([
                 'type' => 'video',
                 'lesson_id' => $id,
             ],[
                 'path' => $request->video,
+                'description' => $request->videoDesc ?: ''
             ]);
+
         }
 
 

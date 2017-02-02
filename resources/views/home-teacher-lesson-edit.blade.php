@@ -51,7 +51,10 @@
                                 <p class="control">
 
                                     @if(count($lesson->uploads->where('type','=','video')))
-                                        <input class="input" type="text" name="video" placeholder="Youtube Video URL e.g. https://www.youtube.com/watch?v=-Nc0wCrkk00" value="{{ $lesson->uploads->where('type','=','video')->first()->path }}"/>   
+                                        <input class="input" type="text" name="video" placeholder="Youtube Video URL e.g. https://www.youtube.com/watch?v=-Nc0wCrkk00" value="{{ $lesson->uploads->where('type','=','video')->first()->path }}"/>
+                                        <br>
+                                        <br>
+                                        <input class="input is-small" type="text" name="videoDesc" placeholder="Video Description" value="{{ $lesson->uploads->where('type','=','video')->first()->description }}"/>
                                     @else
                                         <input class="input" type="text" name="video" placeholder="Youtube Video URL e.g. https://www.youtube.com/watch?v=-Nc0wCrkk00" value=""/>
                                     @endif
@@ -68,7 +71,7 @@
                                                     <img src="{{ asset($image->path) }}" style="max-height: 128px;">
                                                 </figure>
                                                 <input type="hidden" name="photoSave[]" value="{{ $image->id }}"/>
-
+                                                <input type="text" class="input is-small" name="photoDesc[]" value="{{ $image->description }}" placeholder="Photo Description"/>
                                             </div>
                                         </div>
                                     @endforeach
