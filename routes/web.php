@@ -23,7 +23,7 @@ Route::post ('/login',    'Auth\LoginController@authenticate');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home','HomeController@index');
-
+    Route::post  ('/lesson/{lesson}/comment/save',   'LessonController@saveComment');
     Route::resource('lesson', 'LessonController',
     [
         'only' => [
@@ -60,6 +60,7 @@ Route::group(['prefix' => 'parent', 'middleware' => ['auth','role:parent']], fun
     Route::get  ('/',                               'ParentController@home');
     Route::get  ('/lessons',                        'LessonController@index');
     Route::get  ('/grades',                         'GradeController@index');
+
 
 });
 

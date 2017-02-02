@@ -39,4 +39,7 @@ class User extends Authenticatable
     public function grade(){
         return $this->hasMany('App\Grade');
     }
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
 }

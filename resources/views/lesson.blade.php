@@ -151,28 +151,54 @@
             </div>
         </div>
 
-        @if(Auth::user() && Auth::user()->hasRole('parent'))
+        @if(Auth::user() && (Auth::user()->hasRole('parent') || Auth::user()->hasRole('teacher')))
             <div class="tile is-parent">
                 <div class="tile is-child box">
                     <article class="media">
                         <figure class="media-left">
                             <p class="image is-64x64">
-                                <img src="http://placehold.it/128x128">
+                                <img src="https://www.gravatar.com/avatar/{{ md5( Auth::user()->email ) }}?d=retro">
                             </p>
                         </figure>
-                        <div class="media-content">
+                        <form class="media-content" method="POST" action="{{ action('LessonController@saveComment',[
+                            'lesson' => $lesson->id
+                            ]) }}">
+                            {{ csrf_field() }}
                             <p class="control">
-                                <textarea class="textarea" placeholder="Add a comment..."></textarea>
+                                <textarea class="textarea" name="content" placeholder="Add a comment..."></textarea>
                             </p>
                             <nav class="level">
                                 <div class="level-left">
                                     <div class="level-item">
-                                        <a class="button is-info">Post comment</a>
+                                        <button type="submit" class="button is-info">Post comment</button>
                                     </div>
                                 </div>
                             </nav>
-                        </div>
+                        </form>
                     </article>
+                    @if($comments->count())
+                        <hr />
+
+                        @foreach ($comments as $key => $comment)
+                            <article class="media">
+                                <figure class="media-left">
+                                    <p class="image is-64x64">
+                                        <img src="https://www.gravatar.com/avatar/{{ md5( $comment->user->email ) }}?d=retro">
+                                    </p>
+                                </figure>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{ $comment->user->id == Auth::id() ? 'You' : $comment->user->name }}</strong> <small>{{ $comment->user->email }} · {{ $comment->updated_at->diffForHumans() }}</small>
+                                            <br>
+                                            {{ $comment->content }}
+                                            <br>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         @endif

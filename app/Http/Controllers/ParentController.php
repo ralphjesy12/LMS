@@ -7,6 +7,7 @@ use Auth;
 use App\Subject;
 use App\User;
 use App\UserInfo;
+use App\Comment;
 use Validator;
 use Illuminate\Validation\Rule;
 
@@ -190,6 +191,8 @@ class ParentController extends Controller
             'subjects' => $subjects
         ]);
     }
+
+    
 
 
 }
