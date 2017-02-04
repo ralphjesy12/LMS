@@ -21,7 +21,7 @@
             <p class="stat-val">{{ $totalLessons }}</p>
             <p class="stat-key">Lessons</p>
         </a>
-        <a href="{{ url('teacher/students') }}" class="column is-2 likes has-text-centered">
+        <a href="{{ url('teacher/students/overview') }}" class="column is-2 likes has-text-centered">
             <p class="stat-val">{{ $totalStudents }}</p>
             <p class="stat-key">Students</p>
         </a>

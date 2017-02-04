@@ -44,6 +44,22 @@ class StudentController extends Controller
         ]);
     }
 
+    public function indexOverview()
+    {
+        $users = User::whereHas('roles',function($q){
+            $q->where('display_name','=','student');
+        })->orderby('name','ASC')->paginate(10);
+
+        foreach ($users as $key => $u) {
+            $users[$key]->parent = User::find($u->infos()->where('key','parent')->value('value'));
+        }
+
+        return view('home-teacher-student-overview',[
+            'subjects' => Subject::all(),
+            'students' => $users,
+        ]);
+    }
+
     public function create(){
         return view('home-teacher-student-create');
     }
