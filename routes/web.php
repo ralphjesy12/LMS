@@ -64,6 +64,18 @@ Route::group(['prefix' => 'parent', 'middleware' => ['auth','role:parent']], fun
 
 });
 
+Route::group(['prefix' => 'principal', 'middleware' => ['auth','role:principal']], function() {
+
+    Route::get  ('/',                               'PrincipalController@home');
+    Route::get  ('/teachers',                       'PrincipalController@home');
+    Route::get  ('/teacher/create',                 'TeacherController@create');
+    Route::get  ('/teacher/{id}/edit',              'TeacherController@edit');
+    Route::post ('/teacher/store',                  'TeacherController@store');
+    Route::post ('/teacher/{id}/update',            'TeacherController@update');
+    Route::get ('/teacher/{id}/delete',             'TeacherController@destroy');
+
+});
+
 Route::group(['prefix' => 'student', 'middleware' => ['auth','role:student']], function() {
 
     Route::get  ('/',                               'StudentController@home');
