@@ -42,7 +42,7 @@
                                     </p>
                                     <div class="control is-grouped is-pulled-right" >
                                         <p class="control">
-                                            <a href="{{ url('home/subjects') }}" class="button is-link">Go Back</a>
+                                            <a href="{{ url('/teacher/subjects') }}" class="button is-link">Go Back</a>
                                         </p>
                                     </div>
                                     <div class="control is-grouped">
@@ -50,9 +50,8 @@
                                             <button class="button is-primary" type="submit">Save</button>
                                         </p>
                                         <p class="control">
-                                            <button class="button is-link" type="reset">Cancel</button>
+                                            <button class="button is-link" type="reset">Reset</button>
                                         </p>
-
                                     </div>
                                 </form>
                             @endif

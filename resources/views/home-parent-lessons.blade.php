@@ -16,7 +16,7 @@
                         <article class="media">
                             <div class="media-left">
                                 <figure class="image is-64x64">
-                                    <img src="{{ $lesson->imagepath }}" alt="Image">
+                                    <img src="{{ $lesson->imagepath ?: '/img/'.(strtolower(studly_case($lesson->subject->title))).'/icon' . ($key==0 ? '' : ' ('.$key.')') . '.png' }}" alt="Image">
                                 </figure>
                             </div>
                             <div class="media-content">

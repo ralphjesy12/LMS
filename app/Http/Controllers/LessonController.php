@@ -26,7 +26,7 @@ class LessonController extends Controller
 
         if(Auth::user()->hasRole('parent')){
 
-            $lessons = Lesson::latest('subject_id')->paginate(10);
+            $lessons = Lesson::has('subject')->has('quiz')->latest('subject_id')->paginate(10);
 
             $child = UserInfo::where([ 'key' => 'parent', 'value' => Auth::id() ])->first()->value('user_id');
 

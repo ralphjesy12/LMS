@@ -14,7 +14,7 @@
                     <div class="card-content">
                         <div class="content">
                             <p class="title">Preview Exam</p>
-                            <p class="subtitle">{{ $exam->subject->title }}</p>
+                            <p class="subtitle">{{ $exam->subject ? $exam->subject->title : '-' }}</p>
 
                             <label class="label">{{ $exam->title }}</label>
                             <p>

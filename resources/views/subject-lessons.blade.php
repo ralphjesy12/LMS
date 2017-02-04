@@ -52,7 +52,7 @@
                             <article class="media">
                                 <div class="media-left">
                                     <figure class="image is-128x128">
-                                        <img src="{{ $lesson->imagepath }}" alt="Image">
+                                        <img src="{{ $lesson->imagepath ?: '/img/'.(strtolower(studly_case($lesson->subject->title))).'/icon' . ($key==0 ? '' : ' ('.$key.')') . '.png' }}" alt="Image">
                                     </figure>
                                 </div>
                                 <div class="media-content">
@@ -106,7 +106,7 @@
                 </div>
             @endforeach
 
-            @if($subject->exam->count())
+            @if($subject->exam && $subject->exam->count())
                 <div class="column is-full">
                     <div class="box notification is-primary  has-text-centered">
                         <label class="title is-4 is-block">{{ $subject->exam->title }}</label>

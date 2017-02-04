@@ -100,11 +100,11 @@ class GradeController extends Controller
                                     $read++;
                                 }
 
-                                $isQuizDone = Activity::where([
+                                $isQuizDone = $l->quiz ? Activity::where([
                                     'user_id' => $id,
                                     'type' => 'quiz-take',
                                     'info' => json_encode([ 'quiz' =>  $l->quiz->id ])
-                                    ])->count() != 0;
+                                    ])->count() != 0 : false;
 
                                     if($isQuizDone){
                                         $quizTook++;
@@ -119,11 +119,11 @@ class GradeController extends Controller
                                 $examsTotal = 0;
 
                                 if(count($s->exam)){
-                                    $isExamDone = Activity::where([
+                                    $isExamDone = $s->exam ? Activity::where([
                                         'user_id' => $id,
                                         'type' => 'exam-take',
                                         'info' => json_encode([ 'exam' =>  $s->exam->id ])
-                                        ])->count() != 0;
+                                        ])->count() != 0 : false;
 
                                         if($isExamDone){
                                             $examsTaken++;
@@ -170,11 +170,11 @@ class GradeController extends Controller
                                             $read++;
                                         }
 
-                                        $isQuizDone = Activity::where([
+                                        $isQuizDone = $l->quiz ? Activity::where([
                                             'user_id' => $id,
                                             'type' => 'quiz-take',
                                             'info' => json_encode([ 'quiz' =>  $l->quiz->id ])
-                                            ])->count() != 0;
+                                            ])->count() != 0 : false;
 
                                             if($isQuizDone){
                                                 $quizTook++;
@@ -189,11 +189,11 @@ class GradeController extends Controller
                                         $examsTotal = 0;
 
                                         if(count($s->exam)){
-                                            $isExamDone = Activity::where([
+                                            $isExamDone = $s->exam ? Activity::where([
                                                 'user_id' => $id,
                                                 'type' => 'exam-take',
                                                 'info' => json_encode([ 'exam' =>  $s->exam->id ])
-                                                ])->count() != 0;
+                                                ])->count() != 0 : false;
 
                                                 if($isExamDone){
                                                     $examsTaken++;
