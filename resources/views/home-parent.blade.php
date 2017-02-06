@@ -41,7 +41,7 @@
                         "type": "radar",
                         "theme": "light",
                         "dataProvider": <?php
-                            echo json_encode();
+                            echo json_encode($grades);
                             ?>,
                             "startDuration": 0,
                             "graphs": [ {
