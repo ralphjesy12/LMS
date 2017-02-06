@@ -22,10 +22,10 @@
 
                                 <div class="control is-grouped">
                                     <p class="control">
-                                        <a href="{{ url('home/subject/'.session('subject')) }}" class="button is-link">View</a>
+                                        <a href="{{ url('teacher/subject/'.session('subject').'/lessons') }}" class="button is-link">View</a>
                                     </p>
                                     <p class="control">
-                                        <a href="{{ url('home/subjects') }}" class="button is-link" type="reset">Go Back</a>
+                                        <a href="{{ url('teacher/subjects') }}" class="button is-link" type="reset">Go Back</a>
                                     </p>
                                 </div>
                             @else
