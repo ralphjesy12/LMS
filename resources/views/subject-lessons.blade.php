@@ -63,7 +63,7 @@
                                             <small>{{ $lesson->updated_at->diffForHumans() }}</small><br>
                                             {{ str_limit($lesson->description,200) }}
 
-                                            @if($lesson->quiz->count() && Auth::id())
+                                            @if($lesson->quiz && $lesson->quiz->count() && Auth::id())
                                                 <br><br>
                                                 <?php
                                                 $answers = [];
@@ -95,7 +95,9 @@
                                                 @endif
                                             @else
                                                 <br><br>
-                                                <label class="tag is-info">Quiz of {{ $lesson->quiz->quizQuestions->count() }} items</label>
+                                                @if($lesson->quiz)
+                                                    <label class="tag is-info">Quiz of {{ $lesson->quiz->quizQuestions->count() }} items</label>
+                                                @endif
                                             @endif
                                         </p>
                                     </div>

@@ -25,7 +25,7 @@ class SubjectController extends Controller
 
     public function indexLessons($subject)
     {
-        $subject = Subject::findOrFail($subject);
+        $subject = Subject::has('lessons')->findOrFail($subject);
 
         return view('subject-lessons',[
             'subject' => $subject,
