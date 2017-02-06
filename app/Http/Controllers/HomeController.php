@@ -27,6 +27,7 @@ class HomeController extends Controller
         if(Auth::user()->hasRole('teacher')) return redirect()->intended('teacher');
         if(Auth::user()->hasRole('student')) return redirect()->intended('subjects');
         if(Auth::user()->hasRole('parent')) return redirect()->intended('parent');
+        if(Auth::user()->hasRole('principal')) return redirect()->intended('principal');
 
         return redirect()->intended('subjects');
     }
