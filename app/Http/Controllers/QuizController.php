@@ -24,7 +24,7 @@ class QuizController extends Controller
         //
         if(Auth::user()->hasRole('student')){
             return view('home-student-quiz',[
-                'quizzes' => Quiz::paginate(12),
+                'quizzes' => Quiz::has('lesson')->has('lesson.subject')->paginate(12),
             ]);
         }
 
