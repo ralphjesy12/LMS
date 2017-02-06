@@ -6,7 +6,6 @@
 Homestead.json
 Homestead.yaml
 .env
-
 dump.sql
-
 public/img/uploads/
+composer.lock

@@ -11,6 +11,16 @@
         <div class="columns">
             <div class="column">
                 <div class="box">
+                    @php
+                    $grades = $student->grade->map(function($g){
+                        return [
+                            'grade' => $g->grade,
+                            'title' => str_limit($g->subject->title,20)
+                        ];
+                    })->all()
+                    @endphp
+
+                    @if($grades)
                     <!-- Styles -->
                     <style>
                     #chartdiv {
@@ -31,13 +41,7 @@
                         "type": "radar",
                         "theme": "light",
                         "dataProvider": <?php
-
-                            echo json_encode($student->grade->map(function($g){
-                                return [
-                                    'grade' => $g->grade,
-                                    'title' => str_limit($g->subject->title,20)
-                                ];
-                            })->all());
+                            echo json_encode();
                             ?>,
                             "startDuration": 0,
                             "graphs": [ {
@@ -56,9 +60,17 @@
 
                         <!-- HTML -->
                         <div class="content">
-                            <h3 class="is-block has-text-centered">Student Grades per Subject</h3>
+                            <h3 class="is-block has-text-centered">Child&apos;s Grades Overview</h3>
                             <div id="chartdiv"></div>
                         </div>
+
+                        @else
+                        <div class="content">
+                            <h3 class="is-block has-text-centered">Child&apos;s Grades Overview</h3>
+                            <h4 class="is-block has-text-centered">No grades uploaded yet</h4>
+
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="column is-4">

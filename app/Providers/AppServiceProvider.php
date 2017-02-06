@@ -21,7 +21,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         // if(Auth::user() && Auth::user()->hasRole('teacher')){
-            // Count Page Stats and Save to File
             $totalSubjects = Cache::remember('totalSubjects', 5 , function () {
                 return Subject::count();
             });
@@ -43,8 +42,8 @@ class AppServiceProvider extends ServiceProvider
                 ] as $key => $value) {
                     View::share($key, $value);
                 }
-            }
-        // }
+            // }
+        }
 
         /**
         * Register any application services.
