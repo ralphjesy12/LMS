@@ -11,6 +11,7 @@
                         <p class="subtitle is-5">
                             <strong>{{ $subjects->total() }}</strong> subjects
                         </p>
+
                     </div>
                     <div class="level-item">
                         <p class="control has-addons">
@@ -31,13 +32,13 @@
                         @if(isset($subjects[0]))
                             <a href="{{ url('subject/'.$subjects[0]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-primary is-{{ str_slug($subjects[0]->title) }}">
                                 <p class="title">{{ $subjects[0]->title }}</p>
-                                <p class="subtitle">{{ str_limit($subjects[0]->description,30) }}</p>
+                                <p class="subtitle">{{ str_limit(strip_tags($subjects[0]->description),30) }}</p>
                             </a>
                         @endif
                         @if(isset($subjects[1]))
                             <a href="{{ url('subject/'.$subjects[1]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-warning is-{{ str_slug($subjects[1]->title) }}">
                                 <p class="title">{{ $subjects[1]->title }}</p>
-                                <p class="subtitle">{{ str_limit($subjects[1]->description,30) }}</p>
+                                <p class="subtitle">{{ str_limit(strip_tags($subjects[1]->description),30) }}</p>
                             </a>
                         @endif
                     </div>

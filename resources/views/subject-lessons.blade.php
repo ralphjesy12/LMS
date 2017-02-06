@@ -5,7 +5,9 @@
         <div class="box content">
             <!-- Main container -->
             <h1 class="title is-block has-text-centered">{{ $subject->title }}</h1>
-
+            <div>
+                {!! $subject->description !!}
+            </div>
             <nav class="level">
                 <!-- Left side -->
                 <div class="level-left">

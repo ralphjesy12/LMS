@@ -135,7 +135,7 @@ class LessonController extends Controller
         if($request->has('video')){
             Upload::updateOrCreate([
                 'type' => 'video',
-                'lesson_id' => $id,
+                'lesson_id' => $lesson->id,
             ],[
                 'path' => $request->video,
             ]);

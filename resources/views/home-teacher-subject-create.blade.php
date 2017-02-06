@@ -30,7 +30,7 @@
                                 </div>
                             @else
 
-                                <form action="{{ route('subject.store') }}" method="post">
+                                <form id="create-subject" action="{{ route('subject.store') }}" method="post">
                                     {{ csrf_field() }}
                                     <label class="label">Title *</label>
                                     <p class="control">
@@ -38,7 +38,40 @@
                                     </p>
                                     <label class="label">Description *</label>
                                     <p class="control">
-                                        <textarea class="textarea" name="description" placeholder="Overview" required></textarea>
+                                        <input type="hidden" name="description"/>
+                                        <div id="toolbar-container">
+                                            <span class="ql-formats">
+                                                <select class="ql-font"></select>
+                                                <select class="ql-header"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-bold"></button>
+                                                <button class="ql-italic"></button>
+                                                <button class="ql-underline"></button>
+                                                <button class="ql-strike"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-blockquote"></button>
+                                                <button class="ql-code-block"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-list" value="ordered"></button>
+                                                <button class="ql-list" value="bullet"></button>
+                                                <button class="ql-indent" value="-1"></button>
+                                                <button class="ql-indent" value="+1"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <select class="ql-align"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-link"></button>
+                                                <button class="ql-image"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-clean"></button>
+                                            </span>
+                                        </div>
+                                        <div id="editor"></div>
                                     </p>
                                     <div class="control is-grouped is-pulled-right" >
                                         <p class="control">
@@ -72,3 +105,36 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <link href="{{ asset('js/quill/quill.snow.css') }}" rel="stylesheet">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/quill/quill.min.js') }}"></script>
+    <script>
+
+    $(function(){
+        var quill = new Quill('#editor', {
+            placeholder: 'Subject Description...',
+            theme: 'snow',
+            modules: {
+                toolbar: '#toolbar-container'
+            },
+        });
+
+        $('#create-subject').submit(function(event){
+
+
+            var tempCont = document.createElement("div");
+            (new Quill(tempCont)).setContents(quill.getContents());
+            $('input[name=description').val(tempCont.getElementsByClassName("ql-editor")[0].innerHTML);
+
+            if($('input[name=description').val()!='') return true;
+
+                event.preventDefault();
+
+        });
+    });
+    </script>
+@endpush

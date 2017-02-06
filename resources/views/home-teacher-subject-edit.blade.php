@@ -30,31 +30,66 @@
                                 </div>
                             @endif
 
-                                <form action="{{ action('SubjectController@update',['id'=>$subject->id]) }}" method="POST">
-                                    {{ csrf_field() }}
-                                    <label class="label">Title *</label>
-                                    <p class="control">
-                                        <input class="input" type="text" name="title" placeholder="Subject Title" required value="{{ $subject->title }}">
-                                    </p>
-                                    <label class="label">Description *</label>
-                                    <p class="control">
-                                        <textarea class="textarea" name="description" placeholder="Overview" required >{{ $subject->description }}</textarea>
-                                    </p>
-                                    <div class="control is-grouped is-pulled-right" >
-                                        <p class="control">
-                                            <a href="{{ url('home/subjects') }}" class="button is-link">Go Back</a>
-                                        </p>
+                            <form id="update-subject" action="{{ action('SubjectController@update',['id'=>$subject->id]) }}" method="POST">
+                                {{ csrf_field() }}
+                                <label class="label">Title *</label>
+                                <p class="control">
+                                    <input class="input" type="text" name="title" placeholder="Subject Title" required value="{{ $subject->title }}">
+                                </p>
+                                <label class="label">Description *</label>
+                                <p class="control">
+                                    <input type="hidden" name="description"/>
+                                    <div id="toolbar-container">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-header"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
                                     </div>
-                                    <div class="control is-grouped">
-                                        <p class="control">
-                                            <button class="button is-primary" type="submit">Update</button>
-                                        </p>
-                                        <p class="control">
-                                            <button class="button is-link" type="reset">Cancel</button>
-                                        </p>
+                                    <div id="editor">
+                                        {!! $subject->description !!}
+                                    </div>
+                                </p>
+                                <div class="control is-grouped is-pulled-right" >
+                                    <p class="control">
+                                        <a href="{{ url('home/subjects') }}" class="button is-link">Go Back</a>
+                                    </p>
+                                </div>
+                                <div class="control is-grouped">
+                                    <p class="control">
+                                        <button class="button is-primary" type="submit">Update</button>
+                                    </p>
+                                    <p class="control">
+                                        <button class="button is-link" type="reset">Cancel</button>
+                                    </p>
 
-                                    </div>
-                                </form>
+                                </div>
+                            </form>
 
                             @if (count($errors))
                                 <div class="notification is-danger">
@@ -73,3 +108,36 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <link href="{{ asset('js/quill/quill.snow.css') }}" rel="stylesheet">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/quill/quill.min.js') }}"></script>
+    <script>
+
+    $(function(){
+        var quill = new Quill('#editor', {
+            placeholder: 'Subject Overview...',
+            theme: 'snow',
+            modules: {
+                toolbar: '#toolbar-container'
+            },
+        });
+
+        $('#update-subject').submit(function(event){
+
+
+            var tempCont = document.createElement("div");
+            (new Quill(tempCont)).setContents(quill.getContents());
+            $('input[name=description').val(tempCont.getElementsByClassName("ql-editor")[0].innerHTML);
+
+            if($('input[name=description').val()!='') return true;
+
+                event.preventDefault();
+
+        });
+    });
+    </script>
+@endpush

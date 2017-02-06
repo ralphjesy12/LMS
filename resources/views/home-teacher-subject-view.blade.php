@@ -14,10 +14,10 @@
                     <div class="card-content">
                         <div class="content">
                             <p class="title">{{ $subject->title }}</p>
-                            <p class="text-pre">{{ $subject->description }}</p>
+                            <p class="text-pre">{!! $subject->description !!}</p>
                             <div class="control is-grouped">
                                 <p class="control">
-                                    <a href="{{ url('teacher/subject/'.session('subject').'/edit') }}" class="button is-primary">Edit Subject</a>
+                                    <a href="{{ url('teacher/subject/' . $subject->id . '/edit') }}" class="button is-primary">Edit Subject</a>
                                 </p>
                                 <p class="control">
                                     <a href="{{ url('home/subjects') }}" class="button is-link" type="reset">Go Back</a>
@@ -47,7 +47,7 @@
                         <div class="card-content">
                             <div class="content">
                                 <p class="min-height-100">
-                                    {{ str_limit($lesson->description,100) }}
+                                    {{ str_limit(strip_tags($lesson->description),100) }}
                                 </p>
                                 <small>Last updated {{ $lesson->updated_at->diffForHumans() }}</small>
                             </div>
