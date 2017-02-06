@@ -133,7 +133,8 @@ class TeacherController extends Controller
     {
 
 
-        return view('home-teacher');
+        // return view('home-teacher');
+        return redirect()->intended('teacher/subjects');
     }
 
 
