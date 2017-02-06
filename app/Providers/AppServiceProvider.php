@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
             });
 
             $totalLessons = Cache::remember('totalLessons', 5 , function () {
-                return Lesson::count();
+                return Lesson::has('subject')->count();
             });
 
             $totalStudents = Cache::remember('totalStudents', 5 , function () {
