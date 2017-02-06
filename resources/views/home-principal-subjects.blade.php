@@ -25,7 +25,7 @@
                 <div class="card-content">
                     <div class="content">
                         <p class="min-height-100">
-                            {{ str_limit($subject->description,100) }}
+                            {{ str_limit(strip_tags($subject->description),100) }}
                         </p>
                         <small>Last updated {{ $subject->updated_at->diffForHumans() }}</small>
                     </div>

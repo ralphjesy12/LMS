@@ -34,6 +34,7 @@
             <li class="link  {{ $tab=='teachers' ? 'is-active' : '' }}"><a href="{{ url('principal') }}"><span class="icon"><i class="fa fa-user"></i></span> <span>Teachers</span></a></li>
             <li class="link  {{ $tab=='subjects' ? 'is-active' : '' }}"><a href="{{ url('principal/subjects') }}"><span class="icon"><i class="fa fa-book"></i></span> <span>Subjects</span></a></li>
             <li class="link  {{ $tab=='students' ? 'is-active' : '' }}"><a href="{{ url('principal/students') }}"><span class="icon"><i class="fa fa-users"></i></span> <span>Students</span></a></li>
+            <li class="link  {{ $tab=='comments' ? 'is-active' : '' }}"><a href="{{ url('principal/comments') }}"><span class="icon"><i class="fa fa-comment"></i></span> <span>Comments</span></a></li>
         </ul>
     </div>
 </div>

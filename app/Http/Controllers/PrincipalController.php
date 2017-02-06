@@ -42,6 +42,13 @@ class PrincipalController extends Controller
             'subjects' => $subjects
         ]);
     }
+    public function comments()
+    {
+        $comments = Comment::simplePaginate(15);
+        return view('home-principal-comments',[
+            'comments' => $comments
+        ]);
+    }
     public function students()
     {
         $users = User::whereHas('roles',function($q){

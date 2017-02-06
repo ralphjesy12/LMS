@@ -81,6 +81,7 @@ Route::group(['prefix' => 'principal', 'middleware' => ['auth','role:principal']
 
     Route::get  ('/subjects',                       'PrincipalController@subjects');
     Route::get  ('/students',                       'PrincipalController@students');
+    Route::get  ('/comments',                       'PrincipalController@comments');
 
 });
 
