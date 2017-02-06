@@ -35,4 +35,27 @@ class PrincipalController extends Controller
         ]);
     }
 
+    public function subjects()
+    {
+        $subjects = Subject::simplePaginate(15);
+        return view('home-principal-subjects',[
+            'subjects' => $subjects
+        ]);
+    }
+    public function students()
+    {
+        $users = User::whereHas('roles',function($q){
+            $q->where('display_name','=','student');
+        })->orderby('name','ASC')->paginate(10);
+
+        foreach ($users as $key => $u) {
+            $users[$key]->parent = User::find($u->infos()->where('key','parent')->value('value'));
+        }
+
+        return view('home-principal-students',[
+            'subjects' => Subject::all(),
+            'students' => $users,
+        ]);
+    }
+
 }

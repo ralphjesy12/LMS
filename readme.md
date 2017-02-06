@@ -47,9 +47,9 @@ Parents can view his/her children’s scores in quizzes, as well as the grade in
 - [OK] Can add students grades
 
 #### Principal Module
-- View teachers lesson
-- View students grades and performance
-- View parents comment
+- [OK] View teachers lesson
+- [OK] View students grades and performance
+- [OK] View parents comment
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 

@@ -311,4 +311,10 @@ class LessonController extends Controller
 
         return back();
     }
+
+    public function deleteComment(Request $request,$comment){
+        $comment = Comment::findOrFail($comment);
+        if($comment->user->id == Auth::id()) $comment->delete();
+        return back();
+    }
 }

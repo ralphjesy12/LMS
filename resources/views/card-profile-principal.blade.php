@@ -30,11 +30,9 @@
 <div class="profile-options content">
     <div class="tabs is-fullwidth">
         <ul>
-            <li class="link  {{ $tab=='teachers' ? 'is-active' : '' }}"><a href="{{ url('teachers') }}"><span class="icon"><i class="fa fa-user"></i></span> <span>Teachers</span></a></li>
-            <li class="link  {{ $tab=='subjects' ? 'is-active' : '' }}"><a href="{{ url('teacher/subjects') }}"><span class="icon"><i class="fa fa-book"></i></span> <span>Subjects</span></a></li>
-            <li class="link  {{ $tab=='students' ? 'is-active' : '' }}"><a href="{{ url('teacher/students') }}"><span class="icon"><i class="fa fa-users"></i></span> <span>Students</span></a></li>
-            <li class="link  {{ $tab=='exams' ? 'is-active' : '' }}"><a href="{{ url('teacher/exams') }}"><span class="icon"><i class="fa fa-list"></i></span> <span>Exams</span></a></li>
-            <li class="link  {{ $tab=='quizzes' ? 'is-active' : '' }}"><a href="{{ url('teacher/quizzes') }}"><span class="icon"><i class="fa fa-file-text-o"></i></span> <span>Quizzes</span></a></li>
+            <li class="link  {{ $tab=='teachers' ? 'is-active' : '' }}"><a href="{{ url('principal') }}"><span class="icon"><i class="fa fa-user"></i></span> <span>Teachers</span></a></li>
+            <li class="link  {{ $tab=='subjects' ? 'is-active' : '' }}"><a href="{{ url('principal/subjects') }}"><span class="icon"><i class="fa fa-book"></i></span> <span>Subjects</span></a></li>
+            <li class="link  {{ $tab=='students' ? 'is-active' : '' }}"><a href="{{ url('principal/students') }}"><span class="icon"><i class="fa fa-users"></i></span> <span>Students</span></a></li>
         </ul>
     </div>
 </div>

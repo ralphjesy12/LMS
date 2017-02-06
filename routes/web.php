@@ -24,6 +24,7 @@ Route::post ('/login',    'Auth\LoginController@authenticate');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home','HomeController@index');
     Route::post  ('/lesson/{lesson}/comment/save',   'LessonController@saveComment');
+    Route::get  ('/lesson/comment/{comment}/delete',   'LessonController@deleteComment');
     Route::resource('lesson', 'LessonController',
     [
         'only' => [
@@ -72,7 +73,11 @@ Route::group(['prefix' => 'principal', 'middleware' => ['auth','role:principal']
     Route::get  ('/teacher/{id}/edit',              'TeacherController@edit');
     Route::post ('/teacher/store',                  'TeacherController@store');
     Route::post ('/teacher/{id}/update',            'TeacherController@update');
-    Route::get ('/teacher/{id}/delete',             'TeacherController@destroy');
+    Route::get  ('/teacher/{id}/delete',             'TeacherController@destroy');
+
+
+    Route::get  ('/subjects',                       'PrincipalController@subjects');
+    Route::get  ('/students',                       'PrincipalController@students');
 
 });
 
