@@ -14,10 +14,11 @@
                     @php
                     $grades = Auth::user()->grade->map(function($g){
                         return [
-                            'grade' => $g->grade,
+                            'score' => (float)$g->grade,
                             'title' => str_limit($g->subject->title,20)
                         ];
-                    })->all()
+                    })->all();
+
                     @endphp
                     @if($grades)
 

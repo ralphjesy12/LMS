@@ -40,7 +40,7 @@ class GradeController extends Controller
                             $read++;
                         }
 
-                        $isQuizDone = Activity::where([ 'user_id' => $id, 'type' => 'quiz-take', 'info' => json_encode([ 'quiz' =>  $l->quiz->id ]) ])->count() != 0;
+                        $isQuizDone = $l->quiz ? Activity::where([ 'user_id' => $id, 'type' => 'quiz-take', 'info' => json_encode([ 'quiz' =>  $l->quiz->id ]) ])->count() != 0 : false;
 
                         if($isQuizDone){
                             $quizTook++;

@@ -19,7 +19,7 @@ class SubjectController extends Controller
     {
         //
         return view('subjects',[
-            'subjects' => Subject::paginate(8)
+            'subjects' => Subject::has('lessons')->paginate(8)
         ]);
     }
 

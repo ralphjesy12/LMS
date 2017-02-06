@@ -59,7 +59,7 @@
                                                                 <small><strong>{{ $subject->lessonsViewed }} / {{ $subject->lessons->count() }}</strong></small>
                                                             </div>
                                                             <div class="column">
-                                                                <small><strong>{{ number_format( ($subject->lessonsViewed / $subject->lessons->count())*100,2) }}%</strong></small>
+                                                                <small><strong>{{ $subject->lessons->count() ? number_format( ($subject->lessonsViewed / $subject->lessons->count())*100,2) : 0 }}%</strong></small>
                                                             </div>
                                                         </div>
                                                         <div class="columns">
@@ -70,7 +70,7 @@
                                                                 <small><strong>{{ $subject->lessonsQuizTook }} / {{ $subject->lessonsQuizTotal }}</strong></small>
                                                             </div>
                                                             <div class="column">
-                                                                <small><strong>{{ number_format(($subject->lessonsQuizTook / $subject->lessonsQuizTotal)*100,2) }}%</strong></small>
+                                                                <small><strong>{{ $subject->lessonsQuizTotal ? number_format(($subject->lessonsQuizTook / $subject->lessonsQuizTotal)*100,2) : 0 }}%</strong></small>
                                                             </div>
                                                         </div>
                                                         <div class="columns">
@@ -81,7 +81,7 @@
                                                                 <small><strong>{{ $subject->examsTaken }} / {{ $subject->examsTotal }}</strong></small>
                                                             </div>
                                                             <div class="column">
-                                                                <small><strong>{{ number_format(($subject->examsTaken / $subject->examsTotal)*100,2) }}%</strong></small>
+                                                                <small><strong>{{ $subject->examsTotal ? number_format(($subject->examsTaken / $subject->examsTotal)*100,2)  : 0  }}%</strong></small>
                                                             </div>
                                                         </div>
                                                     </p>

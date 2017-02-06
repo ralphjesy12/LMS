@@ -14,7 +14,7 @@
                     @php
                     $grades = $student->grade->map(function($g){
                         return [
-                            'grade' => $g->grade,
+                            'score' => (float)$g->grade,
                             'title' => str_limit($g->subject->title,20)
                         ];
                     })->all()
@@ -49,7 +49,7 @@
                                 "bullet": "round",
                                 "lineThickness": 2,
                                 "fillAlphas": 0.3,
-                                "valueField": "grade"
+                                "valueField": "score"
                             } ],
                             "categoryField": "title",
                             "export": {
