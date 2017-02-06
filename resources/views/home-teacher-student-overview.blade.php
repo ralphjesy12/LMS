@@ -15,10 +15,10 @@
                 </div>
             </div>
         </div>
-        <div class="box">
+        <div class="box table-overflow">
             <table class="table">
                 <thead>
-                    <th> </th>
+                    <!-- <th> </th> -->
                     <th>Student's Name</th>
 
                     @foreach ($subjects as $key => $subject)
@@ -29,7 +29,7 @@
                 <tbody>
                     @foreach ($students as $key => $student)
                         <tr>
-                            <td> {{ str_pad($student->id,5,'0',STR_PAD_LEFT) }} </td>
+                            <!-- <td> {{ str_pad($student->id,5,'0',STR_PAD_LEFT) }} </td> -->
                             <td> {{ $student->name }} </td>
                             @foreach ($subjects as $key => $subject)
                                 <th> {{ $student->grade()->where('subject_id','=',$subject->id)->value('grade') ?: '-' }} </th>
