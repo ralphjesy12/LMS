@@ -11,7 +11,8 @@
                 <span class="subtitle is-4">{{ Auth::user()->roles()->first()->display_name }}</span>
                 {{-- <span class="button is-primary is-outlined follow">Follow</span> --}}
             </p>
-            <p class="tagline">The users profile bio would go here, of course. It could be two lines</p>
+            <a href="{{ url('account') }}" class="is-link">Edit Profile</a>
+            <p class="tagline"></p>
         </div>
         <a href="{{ url('teacher/subjects') }}" class="column is-2 followers has-text-centered">
             <p class="stat-val">{{ $totalSubjects }}</p>

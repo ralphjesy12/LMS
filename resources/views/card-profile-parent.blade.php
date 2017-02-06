@@ -11,6 +11,7 @@
                 <span class="subtitle is-4">{{ Auth::user()->roles()->first()->display_name }}</span>
                 {{-- <span class="button is-primary is-outlined follow">Follow</span> --}}
             </p>
+            <a href="{{ url('account') }}" class="is-link">Edit Profile</a>
             <p class="tagline"></p>
         </div>
     </div>

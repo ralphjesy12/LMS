@@ -32,6 +32,9 @@ Route::group(['middleware' => ['auth']], function () {
             'store'
         ],
     ]);
+
+    Route::get  ('/account',                               'HomeController@account');
+    Route::post  ('/account/{id}/update',                               'HomeController@update');
 });
 
 Route::resource('subjects', 'SubjectController',

@@ -47,7 +47,7 @@
                                 ?>,
                             "startDuration": 0,
                             "graphs": [ {
-                                "balloonText": "[[value]] out of [[scoreTotal]]",
+                                "balloonText": "[[value]]%",
                                 "bullet": "round",
                                 "lineThickness": 2,
                                 "fillAlphas": 0.3,
