@@ -8,6 +8,7 @@ use App\User;
 use App\UserInfo;
 use Validator;
 use Illuminate\Validation\Rule;
+use Image;
 
 class HomeController extends Controller
 {
@@ -76,10 +77,29 @@ class HomeController extends Controller
 
         User::find($id)->update($toUpdate);
 
+
         $userInfo = [
             'birthday' => $request->birthday,
             'idnum' => $request->idnum,
         ];
+
+        // Upload Profile Picture
+        if($request->hasFile('avatar')){
+            $filename = 'avatar-'.Auth::id() . '-' . date('YmdHis') .'.jpg';
+            $path = 'img/avatar/';
+
+
+            $img = Image::make($request->file('avatar'))
+            ->resize(null, 128, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            })
+            ->crop(128, 128);
+            $img->save($path . $filename);
+
+            $userInfo['avatar'] = asset($path . $filename);
+        }
+
 
         foreach ($userInfo as $key => $value) {
             UserInfo::updateOrCreate([

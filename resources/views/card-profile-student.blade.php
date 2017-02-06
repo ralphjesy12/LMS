@@ -2,7 +2,7 @@
     <div class="columns">
         <div class="column is-2">
             <div class="image is-128x128 avatar">
-                <img src="https://www.gravatar.com/avatar/{{ md5( Auth::user()->email ) }}?d=retro">
+                <img src="{{ Auth::user()->infos()->where('key','avatar')->value('value') ?: 'https://www.gravatar.com/avatar/' . md5( Auth::user()->email ) . '?d=retro' }}">
             </div>
         </div>
         <div class="column is-4 name">

@@ -21,7 +21,7 @@
                 <article class="media">
                     <div class="media-left">
                         <figure class="image is-64x64">
-                            <img src="https://www.gravatar.com/avatar/{{ md5( $student->email ) }}?d=retro" alt="Image">
+                            <img src="{{ $student->infos()->where('key','avatar')->value('value') ?: 'https://www.gravatar.com/avatar/' . md5( $student->email ) . '?d=retro' }}" alt="Image">
                         </figure>
                     </div>
                     <div class="media-content">

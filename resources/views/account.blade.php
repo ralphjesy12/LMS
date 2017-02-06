@@ -27,7 +27,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ action('HomeController@update',['id'=>$user->id]) }}" method="POST">
+                            <form action="{{ action('HomeController@update',['id'=>$user->id]) }}" method="POST"  accept="image/*"  enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="columns">
                                     <div class="column">
@@ -70,6 +70,7 @@
                                         <a class="button" href="{{ url('/') }}">Back</a>
                                     </div>
                                     <div class="column">
+
                                         <label class="label">ID Number</label>
                                         <p class="control">
                                             <input class="input" name="idnum" type="text" placeholder="00-000-000" value="{{ $user->infos()->where('key','idnum')->value('value') }}" >
@@ -77,6 +78,16 @@
                                         <label class="label">Birthday</label>
                                         <p class="control">
                                             <input class="input" name="birthday" type="date" placeholder="Your Birthday" value="{{ $user->infos()->where('key','birthday')->value('value')}}" >
+                                        </p>
+                                        <label class="label">Profile</label>
+                                        <p class="control">
+                                            <div class="is-clearfix">
+                                                <div class="image is-128x128 is-pulled-left">
+                                                    <img src="{{ $user->infos()->where('key','avatar')->value('value') ?: 'https://www.gravatar.com/avatar/' . md5( Auth::user()->email ) . '?d=retro' }}" class=" ">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <input class="input" name="avatar" type="file" >
                                         </p>
                                     </div>
                                 </div>

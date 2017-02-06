@@ -9,3 +9,5 @@ Homestead.yaml
 dump.sql
 public/img/uploads/
 composer.lock
+
+public/img/avatar/
