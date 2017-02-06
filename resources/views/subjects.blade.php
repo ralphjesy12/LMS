@@ -46,7 +46,7 @@
                         <div class="tile is-parent">
                             <a href="{{ url('subject/'.$subjects[2]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-info is-{{ str_slug($subjects[2]->title) }}">
                                 <p class="title">{{ $subjects[2]->title }}</p>
-                                <p class="subtitle">{{ str_limit($subjects[2]->description,30) }}</p>
+                                <p class="subtitle">{{ str_limit(strip_tags($subjects[2]->description),30) }}</p>
                             </a>
                         </div>
                     @endif
@@ -55,7 +55,7 @@
                     <div class="tile is-parent is-bold">
                         <a href="{{ url('subject/'.$subjects[4]->id.'/lessons') }}" class="tile is-block is-child notification is-subject-tile is-danger is-{{ str_slug($subjects[4]->title) }}">
                             <p class="title">{{ $subjects[4]->title }}</p>
-                            <p class="subtitle">{{ str_limit($subjects[4]->description,30) }}</p>
+                            <p class="subtitle">{{ str_limit(strip_tags($subjects[4]->description),30) }}</p>
                         </a>
                     </div>
                 @endif
@@ -66,7 +66,7 @@
                     <a href="{{ url('subject/'.$subjects[3]->id.'/lessons') }}" class="is-block tile is-child notification is-subject-tile is-success is-{{ str_slug($subjects[3]->title) }}">
                         <div class="content">
                             <p class="title">{{ $subjects[3]->title }}</p>
-                            <p class="subtitle">{{ str_limit($subjects[3]->description,30) }}</p>
+                            <p class="subtitle">{{ str_limit(strip_tags($subjects[3]->description),30) }}</p>
                             <div class="content">
                                 <!-- Content -->
                             </div>

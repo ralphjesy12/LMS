@@ -77,15 +77,12 @@
                                 </p>
                                 <div class="control is-grouped is-pulled-right" >
                                     <p class="control">
-                                        <a href="{{ url('home/subjects') }}" class="button is-link">Go Back</a>
+                                        <a href="{{ url('teacher/subject/'.$subject->id.'/lessons') }}" class="button is-link">Go Back</a>
                                     </p>
                                 </div>
                                 <div class="control is-grouped">
                                     <p class="control">
                                         <button class="button is-primary" type="submit">Update</button>
-                                    </p>
-                                    <p class="control">
-                                        <button class="button is-link" type="reset">Cancel</button>
                                     </p>
 
                                 </div>

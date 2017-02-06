@@ -31,7 +31,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ action('LessonController@update',['id'=>$lesson->id]) }}" method="post"  enctype="multipart/form-data">
+                            <form id="update-lesson" action="{{ action('LessonController@update',['id'=>$lesson->id]) }}" method="post"  enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <label class="label">Title *</label>
                                 <input type="hidden" name="subject_id" value="{{ $subject->id }}"/>
@@ -45,7 +45,40 @@
                                 </p>
                                 <label class="label">Content *</label>
                                 <p class="control">
-                                    <textarea class="textarea" name="content" placeholder="Overview" required rows="10">{{ $lesson->content }}</textarea>
+                                    <input type="hidden" name="content"/>
+                                    <div id="toolbar-container">
+                                        <span class="ql-formats">
+                                            <select class="ql-font"></select>
+                                            <select class="ql-header"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold"></button>
+                                            <button class="ql-italic"></button>
+                                            <button class="ql-underline"></button>
+                                            <button class="ql-strike"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-blockquote"></button>
+                                            <button class="ql-code-block"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered"></button>
+                                            <button class="ql-list" value="bullet"></button>
+                                            <button class="ql-indent" value="-1"></button>
+                                            <button class="ql-indent" value="+1"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-align"></select>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link"></button>
+                                            <button class="ql-image"></button>
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean"></button>
+                                        </span>
+                                    </div>
+                                    <div id="editor">{!! $lesson->content !!}</div>
                                 </p>
                                 <label class="label">Video *</label>
                                 <p class="control">
@@ -116,3 +149,43 @@
 
 
 @endsection
+
+
+@push('styles')
+    <link href="{{ asset('js/quill/quill.snow.css') }}" rel="stylesheet">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/quill/quill.min.js') }}"></script>
+    <script>
+
+    $(function(){
+
+
+        var quill = new Quill('#editor', {
+            placeholder: 'Lesson Content...',
+            theme: 'snow',
+            modules: {
+                toolbar: '#toolbar-container'
+            }
+        });
+
+        function imageHandler() {
+            var range = this.quill.getSelection();
+            var value = prompt('What is the image URL');
+            this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
+        }
+
+        var toolbar = quill.getModule('toolbar');
+        toolbar.addHandler('image', imageHandler);
+
+        $('#update-lesson').submit(function(event){
+            var tempCont = document.createElement("div");
+            (new Quill(tempCont)).setContents(quill.getContents());
+            $('input[name=content').val(tempCont.getElementsByClassName("ql-editor")[0].innerHTML);
+            if($('input[name=content').val()!='') return true;
+            event.preventDefault();
+        });
+    });
+    </script>
+@endpush

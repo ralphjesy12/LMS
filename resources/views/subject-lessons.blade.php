@@ -40,75 +40,84 @@
         </div>
         <div class="columns is-multiline">
 
-
-            @foreach ($lessons as $key => $lesson)
-                <div class="column is-6">
-                    <div class="box notification {{ [
-                        'is-warning',
-                        'is-info',
-                        'is-success',
-                        'is-danger',
-                        'is-primary'
-                        ][$key%5] }}">
-                        <a href="{{ url('lesson/'.$lesson->id) }}" class="content">
-                            <article class="media">
-                                <div class="media-left">
-                                    <figure class="image is-128x128">
-                                        <img src="{{ $lesson->imagepath ?: '/img/'.(strtolower(studly_case($lesson->subject->title))).'/icon' . ($key==0 ? '' : ' ('.$key.')') . '.png' }}" alt="Image">
-                                    </figure>
-                                </div>
-                                <div class="media-content">
-                                    <div class="content">
-                                        <p>
-
-                                            <strong>{{ $lesson->title }}</strong><br>
-                                            <small>{{ $lesson->updated_at->diffForHumans() }}</small><br>
-                                            {{ str_limit($lesson->description,200) }}
-
-                                            @if($lesson->quiz && $lesson->quiz->count() && Auth::id())
-                                                <br><br>
-                                                <?php
-                                                $answers = [];
-                                                $score = 0;
-                                                $scoreTotal = 0;
-
-                                                $answers = $lesson->quiz->answers->where('user_id',Auth::id());
-
-                                                ?>
-                                                @if($answers->count())
-                                                    <?php
-                                                    foreach ($answers as $key => $answer) {
-
-                                                        $diff = array_diff(
-                                                            explode(',',$answer->answer),
-                                                            explode(',',$answer->question->answer)
-                                                        );
-
-                                                        if(count($diff)==0){
-                                                            $score += $answer->question->score;
-                                                        }
-                                                        $scoreTotal += $answer->question->score;
-
-                                                    }
-                                                    ?>
-                                                    <label class="tag is-success">You scored {{ $score }} out of {{ $scoreTotal }} ({{ number_format((($score/$scoreTotal)*100),2) }}%) last {{ $answers->last()->updated_at->diffForHumans() }}</label>
-                                                @else
-                                                    <label class="tag is-info">Quiz of {{ $lesson->quiz->quizQuestions->count() }} items</label>
-                                                @endif
-                                            @else
-                                                <br><br>
-                                                @if($lesson->quiz)
-                                                    <label class="tag is-info">Quiz of {{ $lesson->quiz->quizQuestions->count() }} items</label>
-                                                @endif
-                                            @endif
-                                        </p>
+            @if($lessons->count())
+                @foreach ($lessons as $key => $lesson)
+                    <div class="column is-6">
+                        <div class="box notification {{ [
+                            'is-warning',
+                            'is-info',
+                            'is-success',
+                            'is-danger',
+                            'is-primary'
+                            ][$key%5] }}">
+                            <a href="{{ url('lesson/'.$lesson->id) }}" class="content">
+                                <article class="media">
+                                    <div class="media-left">
+                                        <figure class="image is-128x128">
+                                            <img src="{{ $lesson->imagepath ?: '/img/'.(strtolower(studly_case($lesson->subject->title))).'/icon' . ($key==0 ? '' : ' ('.$key.')') . '.png' }}" alt="Image">
+                                        </figure>
                                     </div>
-                                </div>
-                            </article>
-                        </a>
+                                    <div class="media-content">
+                                        <div class="content">
+                                            <p>
+
+                                                <strong>{{ $lesson->title }}</strong><br>
+                                                <small>{{ $lesson->updated_at->diffForHumans() }}</small><br>
+                                                {{ str_limit($lesson->description,200) }}
+
+                                                @if($lesson->quiz && $lesson->quiz->count() && Auth::id())
+                                                    <br><br>
+                                                    <?php
+                                                    $answers = [];
+                                                    $score = 0;
+                                                    $scoreTotal = 0;
+
+                                                    $answers = $lesson->quiz->answers->where('user_id',Auth::id());
+
+                                                    ?>
+                                                    @if($answers->count())
+                                                        <?php
+                                                        foreach ($answers as $key => $answer) {
+
+                                                            $diff = array_diff(
+                                                                explode(',',$answer->answer),
+                                                                explode(',',$answer->question->answer)
+                                                            );
+
+                                                            if(count($diff)==0){
+                                                                $score += $answer->question->score;
+                                                            }
+                                                            $scoreTotal += $answer->question->score;
+
+                                                        }
+                                                        ?>
+                                                        <label class="tag is-success">You scored {{ $score }} out of {{ $scoreTotal }} ({{ number_format((($score/$scoreTotal)*100),2) }}%) last {{ $answers->last()->updated_at->diffForHumans() }}</label>
+                                                    @else
+                                                        <label class="tag is-info">Quiz of {{ $lesson->quiz->quizQuestions->count() }} items</label>
+                                                    @endif
+                                                @else
+                                                    <br><br>
+                                                    @if($lesson->quiz)
+                                                        <label class="tag is-info">Quiz of {{ $lesson->quiz->quizQuestions->count() }} items</label>
+                                                    @endif
+                                                @endif
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <div class="column is-full">
+                    <div class="box">
+                        <div class="content has-text-centered">
+                            No lessons yet
+                        </div>
                     </div>
                 </div>
-            @endforeach
+            @endif
 
             @if($subject->exam && $subject->exam->count())
                 <div class="column is-full">
@@ -190,9 +199,11 @@
         </div>
 
         @if($lessons->hasPages())
+
             <div class="box">
                 {{ $lessons->links('vendor.pagination.simple-bulma') }}
             </div>
+
         @endif
     </div>
 @endsection

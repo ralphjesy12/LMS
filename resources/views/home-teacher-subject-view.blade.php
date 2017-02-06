@@ -20,7 +20,7 @@
                                     <a href="{{ url('teacher/subject/' . $subject->id . '/edit') }}" class="button is-primary">Edit Subject</a>
                                 </p>
                                 <p class="control">
-                                    <a href="{{ url('home/subjects') }}" class="button is-link" type="reset">Go Back</a>
+                                    <a href="{{ url('teacher/subjects') }}" class="button is-link" type="reset">Go Back</a>
                                 </p>
                             </div>
                         </div>

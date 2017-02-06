@@ -19,13 +19,13 @@ class SubjectController extends Controller
     {
         //
         return view('subjects',[
-            'subjects' => Subject::has('lessons')->paginate(8)
+            'subjects' => Subject::paginate(8)
         ]);
     }
 
     public function indexLessons($subject)
     {
-        $subject = Subject::has('lessons')->findOrFail($subject);
+        $subject = Subject::findOrFail($subject);
 
         return view('subject-lessons',[
             'subject' => $subject,

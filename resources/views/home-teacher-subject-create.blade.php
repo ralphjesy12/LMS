@@ -82,9 +82,6 @@
                                         <p class="control">
                                             <button class="button is-primary" type="submit">Save</button>
                                         </p>
-                                        <p class="control">
-                                            <button class="button is-link" type="reset">Reset</button>
-                                        </p>
                                     </div>
                                 </form>
                             @endif

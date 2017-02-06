@@ -39,9 +39,9 @@
                     <div class="tile is-parent">
                         <article class="tile is-child notification is-info">
                             <h1 class="title">Lesson Content</h1>
-                            <p class="text-pre">
-                                {{ $lesson->content }}
-                            </p>
+                            <div class="content text-pre" style="color: #fff;">
+                                {!! $lesson->content !!}
+                            </div>
                         </article>
 
                     </div>
