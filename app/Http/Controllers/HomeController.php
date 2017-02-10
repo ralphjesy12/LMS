@@ -81,6 +81,8 @@ class HomeController extends Controller
         $userInfo = [
             'birthday' => $request->birthday,
             'idnum' => $request->idnum,
+            'contact' => $request->contact,
+            'address' => $request->address,
         ];
 
         // Upload Profile Picture

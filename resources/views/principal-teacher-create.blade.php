@@ -74,10 +74,17 @@
                                             @endif
                                         </p>
                                         <hr>
-                                        <button class="button is-primary">Create Student</button>
+                                        <button class="button is-primary">Create Teacher</button>
                                     </div>
                                     <div class="column">
-
+                                        <label class="label">Address</label>
+                                        <p class="control">
+                                            <input class="input" name="address" type="text" placeholder="Complete Address" value="{{ old('address') }}" >
+                                        </p>
+                                        <label class="label">Contact Number</label>
+                                        <p class="control">
+                                            <input class="input" name="contact" type="text" placeholder="Contact Number" value="{{ old('contact') }}" >
+                                        </p>
                                     </div>
                                 </div>
                             </form>

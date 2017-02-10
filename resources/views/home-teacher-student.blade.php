@@ -32,6 +32,7 @@
                             <div class="columns">
                                 <div class="column">
                                     <p>
+                                        <label><strong>Section</strong> : {{ $student->infos()->where('key','section')->value('value') ?: '-' }}</label><br>
                                         <label><strong>ID Number</strong> : {{ $student->infos()->where('key','idnum')->value('value') }}</label><br>
                                         <label><strong>Birthday</strong> : {{ $student->infos()->where('key','birthday')->value('value') }}</label>
                                     </p>

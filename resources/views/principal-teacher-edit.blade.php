@@ -80,7 +80,14 @@
                                         <button class="button is-primary">Update Student</button>
                                     </div>
                                     <div class="column">
-
+                                        <label class="label">Address</label>
+                                        <p class="control">
+                                            <input class="input" name="address" type="text" placeholder="Complete Address" value="{{ old('address') ?: $teacher->address }}" >
+                                        </p>
+                                        <label class="label">Contact Number</label>
+                                        <p class="control">
+                                            <input class="input" name="contact" type="text" placeholder="Contact Number" value="{{ old('contact') ?: $teacher->contact }}" >
+                                        </p>
                                     </div>
                                 </div>
                             </form>

@@ -77,13 +77,26 @@
                                         <button class="button is-primary">Create Student</button>
                                     </div>
                                     <div class="column">
+                                        <label class="label">Section</label>
+                                        <p class="control">
+                                            <input class="input" name="section" type="text" placeholder="Grade 3 - Rizal" value="{{ old('section') }}" required >
+                                        </p>
                                         <label class="label">ID Number</label>
                                         <p class="control">
                                             <input class="input" name="idnum" type="text" placeholder="00-000-000" value="{{ old('idnum') }}" required >
                                         </p>
+                                        <hr />
                                         <label class="label">Birthday</label>
                                         <p class="control">
                                             <input class="input" name="birthday" type="date" placeholder="Your Birthday" value="{{ old('birthday') }}" >
+                                        </p>
+                                        <label class="label">Address</label>
+                                        <p class="control">
+                                            <input class="input" name="address" type="text" placeholder="Complete Address" value="{{ old('address') }}" >
+                                        </p>
+                                        <label class="label">Contact Number</label>
+                                        <p class="control">
+                                            <input class="input" name="contact" type="text" placeholder="Contact Number" value="{{ old('contact') }}" >
                                         </p>
                                     </div>
                                 </div>

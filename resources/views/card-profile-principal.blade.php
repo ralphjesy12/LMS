@@ -14,15 +14,15 @@
             <a href="{{ url('account') }}" class="is-link">Edit Profile</a>
             <p class="tagline"></p>
         </div>
-        <a href="{{ url('teacher/subjects') }}" class="column is-2 followers has-text-centered">
+        <a href="{{ url('principal/subjects') }}" class="column is-2 followers has-text-centered">
             <p class="stat-val">{{ $totalSubjects }}</p>
             <p class="stat-key">Subjects</p>
         </a>
-        <a href="{{ url('teacher/subjects') }}" class="column is-2 following has-text-centered">
+        <a href="{{ url('principal/subjects') }}" class="column is-2 following has-text-centered">
             <p class="stat-val">{{ $totalLessons }}</p>
             <p class="stat-key">Lessons</p>
         </a>
-        <a href="{{ url('teacher/students/overview') }}" class="column is-2 likes has-text-centered">
+        <a href="{{ url('principal/students') }}" class="column is-2 likes has-text-centered">
             <p class="stat-val">{{ $totalStudents }}</p>
             <p class="stat-key">Students</p>
         </a>

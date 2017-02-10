@@ -86,6 +86,8 @@ class ParentController extends Controller
         $toUpdate = [
             'email' => $request->email,
             'name' => $request->name,
+            'contact' => $request->contact,
+            'address' => $request->address,
         ];
 
         if(!empty($request->password)){
@@ -126,6 +128,8 @@ class ParentController extends Controller
         $toUpdate = [
             'email' => $request->email,
             'name' => $request->name,
+            'contact' => $request->contact,
+            'address' => $request->address,
         ];
 
         if(!empty($request->password)){
@@ -192,7 +196,7 @@ class ParentController extends Controller
         ]);
     }
 
-    
+
 
 
 }

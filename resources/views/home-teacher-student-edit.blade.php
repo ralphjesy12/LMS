@@ -80,13 +80,26 @@
                                         <button class="button is-primary">Update Student</button>
                                     </div>
                                     <div class="column">
+                                        <label class="label">Section</label>
+                                        <p class="control">
+                                            <input class="input" name="section" type="text" placeholder="Grade 3 - Rizal" value="{{ old('section') }}" required >
+                                        </p>
                                         <label class="label">ID Number</label>
                                         <p class="control">
                                             <input class="input" name="idnum" type="text" placeholder="00-000-000" value="{{ $student->infos()->where('key','idnum')->value('value') }}" >
                                         </p>
+                                        <hr />
                                         <label class="label">Birthday</label>
                                         <p class="control">
                                             <input class="input" name="birthday" type="date" placeholder="Your Birthday" value="{{ $student->infos()->where('key','birthday')->value('value')}}" >
+                                        </p>
+                                        <label class="label">Address</label>
+                                        <p class="control">
+                                            <input class="input" name="address" type="text" placeholder="Complete Address" value="{{ $student->infos()->where('key','address')->value('value')}}" >
+                                        </p>
+                                        <label class="label">Contact Number</label>
+                                        <p class="control">
+                                            <input class="input" name="contact" type="text" placeholder="Contact Number" value="{{ $student->infos()->where('key','contact')->value('value')}}" >
                                         </p>
                                     </div>
                                 </div>

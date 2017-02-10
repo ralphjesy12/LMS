@@ -89,6 +89,14 @@
                                             <br>
                                             <input class="input" name="avatar" type="file" >
                                         </p>
+                                        <label class="label">Address</label>
+                                        <p class="control">
+                                            <input class="input" name="address" type="text" placeholder="Complete Address" value="{{ $user->infos()->where('key','address')->value('value') }}" >
+                                        </p>
+                                        <label class="label">Contact Number</label>
+                                        <p class="control">
+                                            <input class="input" name="contact" type="text" placeholder="Contact Number" value="{{ $user->infos()->where('key','contact')->value('value') }}" >
+                                        </p>
                                     </div>
                                 </div>
                             </form>

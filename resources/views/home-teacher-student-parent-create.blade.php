@@ -82,10 +82,19 @@
                                         <p class="control">
                                             <input class="input" type="text" placeholder="Student Name" value="{{ $student->name }}" readonly >
                                         </p>
-                                            <label class="label">Student&apos;s Email</label>
-                                            <p class="control">
-                                                <input class="input" type="text" placeholder="Student Name" value="{{ $student->email }}" readonly >
-                                            </p>
+                                        <label class="label">Student&apos;s Email</label>
+                                        <p class="control">
+                                            <input class="input" type="text" placeholder="Student Name" value="{{ $student->email }}" readonly >
+                                        </p>
+                                        <hr />
+                                        <label class="label">Address</label>
+                                        <p class="control">
+                                            <input class="input" name="address" type="text" placeholder="Complete Address" value="{{ old('address') }}" >
+                                        </p>
+                                        <label class="label">Contact Number</label>
+                                        <p class="control">
+                                            <input class="input" name="contact" type="text" placeholder="Contact Number" value="{{ old('contact') }}" >
+                                        </p>
                                     </div>
                                 </div>
                             </form>

@@ -111,6 +111,9 @@ class StudentController extends Controller
         $userInfo = [
             'birthday' => $request->birthday,
             'idnum' => $request->idnum,
+            'section' => $request->section,
+            'contact' => $request->contact,
+            'address' => $request->address,
         ];
 
         foreach ($userInfo as $key => $value) {
@@ -167,6 +170,9 @@ class StudentController extends Controller
         $userInfo = [
             'birthday' => $request->birthday,
             'idnum' => $request->idnum,
+            'section' => $request->section,
+            'contact' => $request->contact,
+            'address' => $request->address,
         ];
 
         foreach ($userInfo as $key => $value) {
