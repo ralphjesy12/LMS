@@ -12,6 +12,16 @@
             <div class="container">
                 <div class="content">
                     <a href="{{ url('teacher/student/create') }}" class="button is-primary">Add Student</a>
+                    <p class="control is-pulled-right">
+                        <span class="select">
+                            <select id="select-section">
+                                <option>All Sections</option>
+                                @foreach ($sections as $key => $section)
+                                    <option {{ isset($_GET['section']) && $section->value === $_GET['section'] ? 'selected' : '' }}>{{ $section->value }}</option>
+                                @endforeach
+                            </select>
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>

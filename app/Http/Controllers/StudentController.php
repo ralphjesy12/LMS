@@ -29,34 +29,58 @@ class StudentController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::whereHas('roles',function($q){
             $q->where('display_name','=','student');
-        })->orderby('name','ASC')->paginate(10);
+        });
+
+        if( $request->has('section') && $request->section!='All Sections' ){
+            $section = $request->section;
+            $users = $users->whereHas('infos', function ($query) use ($section){
+                $query->where('value', 'like', $section);
+            });
+        }
+
+        $users = $users->orderby('name','ASC')->paginate(10);
 
         foreach ($users as $key => $u) {
             $users[$key]->parent = User::find($u->infos()->where('key','parent')->value('value'));
         }
+
+        $sections = UserInfo::distinct()->select('value')->where('key','section')->get();
 
         return view('home-teacher-student',[
             'students' => $users,
+            'sections' => $sections
         ]);
     }
 
-    public function indexOverview()
+    public function indexOverview(Request $request)
     {
         $users = User::whereHas('roles',function($q){
             $q->where('display_name','=','student');
-        })->orderby('name','ASC')->paginate(10);
+        });
+
+        if( $request->has('section') && $request->section!='All Sections' ){
+            $section = $request->section;
+            $users = $users->whereHas('infos', function ($query) use ($section){
+                $query->where('value', 'like', $section);
+            });
+        }
+
+        $users = $users->orderby('name','ASC')->paginate(10);
 
         foreach ($users as $key => $u) {
             $users[$key]->parent = User::find($u->infos()->where('key','parent')->value('value'));
         }
 
+
+        $sections = UserInfo::distinct()->select('value')->where('key','section')->get();
         return view('home-teacher-student-overview',[
             'subjects' => Subject::all(),
             'students' => $users,
+            'sections' => $sections
         ]);
     }
 
