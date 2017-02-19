@@ -2,6 +2,25 @@
 
 @section('content')
     <div class="container subjects ">
+        <div class="box">
+            <div class="owl-carousel owl-theme">
+                <div class="item">
+                    <img src="{{ asset('img/banner/banner_4.png') }}" />
+                </div>
+                <div class="item">
+                    <img src="{{ asset('img/banner/banner_1.png') }}" />
+                </div>
+                <div class="item">
+                    <img src="{{ asset('img/banner/banner_2.png') }}" />
+                </div>
+                <div class="item">
+                    <img src="{{ asset('img/banner/banner_3.png') }}" />
+                </div>
+                <div class="item">
+                    <img src="{{ asset('img/banner/banner_5.jpg') }}" />
+                </div>
+            </div>
+        </div>
         <div class="box content">
             <!-- Main container -->
             <nav class="level">
@@ -133,3 +152,25 @@
 
 
 @endsection
+
+@push('styles')
+    <link href="{{ asset('owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('owlcarousel/assets/owl.theme.green.min.css') }}" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('owlcarousel/owl.carousel.min.js') }}"></script>
+    <script>
+    $(function(){
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            autoplay:true,
+            autoplayTimeout:3000,
+            autoplayHoverPause:false,
+            nav:false,
+            items: 1,
+        });
+    });
+    </script>
+@endpush

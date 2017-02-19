@@ -118,18 +118,19 @@
                     </div>
                 </div>
             @endif
+            @foreach ($subject->exams as $key => $exam)
 
-            @if($subject->exam && $subject->exam->count())
+
                 <div class="column is-full">
                     <div class="box notification is-primary  has-text-centered">
-                        <label class="title is-4 is-block">{{ $subject->exam->title }}</label>
+                        <label class="title is-4 is-block">{{ $exam->title }}</label>
 
                         <?php
                         $answers = [];
                         $score = 0;
                         $scoreTotal = 0;
 
-                        $answers = $subject->exam->answers->where('user_id',Auth::id());
+                        $answers = $exam->answers->where('user_id',Auth::id());
 
                         foreach ($answers as $key => $answer) {
 
@@ -147,7 +148,7 @@
 
                         ?>
                         @if($answers->count())
-                            @if($answers->count()==$subject->exam->examQuestions->count())
+                            @if($answers->count()==$exam->examQuestions->count())
                                 <p class="subtitle is-6 has-text-centered">
                                     <label class="title is-3">{{ $score }} out of {{ $scoreTotal }} ({{ number_format((($score/$scoreTotal)*100),2) }}%)</label><br>
                                 </p>
@@ -165,27 +166,27 @@
                                 </nav>
                             @else
                                 <p class="subtitle is-6 has-text-centered">
-                                    <label class="title is-3">{{ $answers->count() }} out of {{ $subject->exam->examQuestions->count() }} answered</label><br>
+                                    <label class="title is-3">{{ $answers->count() }} out of {{ $exam->examQuestions->count() }} answered</label><br>
                                 </p>
                                 <nav class="level">
-                                    <a href="{{ url('student/exam/'.$subject->exam->id.'/question/' . ($answers->count() + 1)) }}" class="level-item button is-warning">
+                                    <a href="{{ url('student/exam/'.$exam->id.'/question/' . ($answers->count() + 1)) }}" class="level-item button is-warning">
                                         <span class="icon"><i class="fa fa-check"></i></span><span>Continue Exam</span>
                                     </a>
                                 </nav>
                             @endif
                         @else
                             <p class="subtitle is-6 has-text-centered">
-                                {{ $subject->exam->examQuestions()->count() }} items
+                                {{ $exam->examQuestions()->count() }} items
                             </p>
 
                             <nav class="level">
                                 @if(Auth::user() && Auth::user()->hasRole('teacher'))
-                                    <a href="{{ url('teacher/exam/' . $subject->exam->id . '/edit ') }}" target="_blank" class="level-item button is-primary">
+                                    <a href="{{ url('teacher/exam/' . $exam->id . '/edit ') }}" target="_blank" class="level-item button is-primary">
                                         <span class="icon"><i class="fa fa-pencil"></i></span><span>Edit Exam</span>
                                     </a>
                                 @else
                                     @if(Auth::user() && Auth::user()->hasRole('student'))
-                                        <a href="{{ url('student/exam/' . $subject->exam->id) }}" class="level-item button is-primary">
+                                        <a href="{{ url('student/exam/' . $exam->id) }}" class="level-item button is-primary">
                                             <span class="icon"><i class="fa fa-check"></i></span><span>Start Exam Now</span>
                                         </a>
                                     @endif
@@ -195,7 +196,9 @@
 
                     </div>
                 </div>
-            @endif
+
+            @endforeach
+
         </div>
 
         @if($lessons->hasPages())

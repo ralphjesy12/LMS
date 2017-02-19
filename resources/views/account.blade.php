@@ -70,11 +70,12 @@
                                         <a class="button" href="{{ url('/') }}">Back</a>
                                     </div>
                                     <div class="column">
-
-                                        <label class="label">ID Number</label>
-                                        <p class="control">
-                                            <input class="input" name="idnum" type="text" placeholder="00-000-000" value="{{ $user->infos()->where('key','idnum')->value('value') }}" >
-                                        </p>
+                                        @if(!$user->hasRole('parent'))
+                                            <label class="label">ID Number</label>
+                                            <p class="control">
+                                                <input class="input" name="idnum" type="text" placeholder="00-000-000" value="{{ $user->infos()->where('key','idnum')->value('value') }}" >
+                                            </p>
+                                        @endif
                                         <label class="label">Birthday</label>
                                         <p class="control">
                                             <input class="input" name="birthday" type="date" placeholder="Your Birthday" value="{{ $user->infos()->where('key','birthday')->value('value')}}" >

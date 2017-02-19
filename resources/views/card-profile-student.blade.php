@@ -12,7 +12,10 @@
                 {{-- <span class="button is-primary is-outlined follow">Follow</span> --}}
             </p>
             <a href="{{ url('account') }}" class="is-link">Edit Profile</a>
-            <p class="tagline"></p>
+            <p class="tagline">
+                {{ Auth::user()->infos()->where('key','address')->value('value') ?: '' }}<br>
+                {{ Auth::user()->infos()->where('key','contact')->value('value') ?: '' }}
+            </p>
         </div>
     </div>
 </div>

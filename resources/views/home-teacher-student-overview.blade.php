@@ -30,6 +30,7 @@
                 <thead>
                     <!-- <th> </th> -->
                     <th>Student's Name</th>
+                    <th>Section</th>
 
                     @foreach ($subjects as $key => $subject)
                         <th> {{ $subject->title }} </th>
@@ -41,8 +42,9 @@
                         <tr>
                             <!-- <td> {{ str_pad($student->id,5,'0',STR_PAD_LEFT) }} </td> -->
                             <td> {{ $student->name }} </td>
+                            <td> {{ $student->infos()->where('key','section')->value('value') ?: '-' }} </td>
                             @foreach ($subjects as $key => $subject)
-                                <th> {{ $student->grade()->where('subject_id','=',$subject->id)->value('grade') ?: '-' }} </th>
+                                <td> {{ $student->grade()->where('subject_id','=',$subject->id)->value('grade') ?: '-' }} </td>
                             @endforeach
                             <td> {{  number_format($student->grade()->avg('grade'),2) }}% </td>
                         </tr>
