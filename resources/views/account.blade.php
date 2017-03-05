@@ -102,6 +102,11 @@
                                 </div>
                             </form>
 
+                            @if($user->hasRole('principal'))
+                                <hr />
+                                <a href="{{ action('BackupRestoreController@index') }}" class="button is-danger">Backup and Restore Data</a>
+                            @endif
+
 
                         </div>
                     </div>

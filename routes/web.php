@@ -83,6 +83,11 @@ Route::group(['prefix' => 'principal', 'middleware' => ['auth','role:principal']
     Route::get  ('/students',                       'PrincipalController@students');
     Route::get  ('/comments',                       'PrincipalController@comments');
 
+    Route::get  ('/backup-restore',                  'BackupRestoreController@index');
+    Route::get  ('/backup-restore/create',           'BackupRestoreController@create');
+    Route::get  ('/backup-restore/restore',           'BackupRestoreController@restore');
+    Route::get  ('/backup-restore/delete',           'BackupRestoreController@delete');
+
 });
 
 Route::group(['prefix' => 'student', 'middleware' => ['auth','role:student']], function() {
