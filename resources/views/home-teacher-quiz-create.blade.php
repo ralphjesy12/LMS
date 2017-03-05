@@ -148,3 +148,38 @@
         </div>
     </div>
 @endsection
+
+
+
+@push('styles')
+    <link href="{{ asset('js/quill/quill.snow.css') }}" rel="stylesheet">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('js/quill/quill.min.js') }}"></script>
+    <script>
+
+    $(function(){
+        var quill = new Quill('#editor', {
+            placeholder: 'Subject Description...',
+            theme: 'snow',
+            modules: {
+                toolbar: '#toolbar-container'
+            },
+        });
+
+        $('#create-subject').submit(function(event){
+
+
+            var tempCont = document.createElement("div");
+            (new Quill(tempCont)).setContents(quill.getContents());
+            $('input[name=description').val(tempCont.getElementsByClassName("ql-editor")[0].innerHTML);
+
+            if($('input[name=description').val()!='') return true;
+
+                event.preventDefault();
+
+        });
+    });
+    </script>
+@endpush
