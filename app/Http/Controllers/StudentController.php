@@ -42,6 +42,15 @@ class StudentController extends Controller
             });
         }
 
+        if(!($request->has('showarchived') && $request->showarchived)){
+            $users = $users->whereDoesntHave('infos', function ($query){
+                $query->where([
+                    ['value', '=', '1'],
+                    ['key', '=' ,'isarchived']
+                ]);
+            });
+        }
+
         $users = $users->orderby('name','ASC')->paginate(10);
 
         foreach ($users as $key => $u) {
@@ -246,6 +255,47 @@ class StudentController extends Controller
         return view('home-student-subjects',[
             'subjects' => $subjects
         ]);
+    }
+    public function setarchive($id,$archive)
+    {
+        UserInfo::updateOrCreate([
+            'user_id' => $id,
+            'key' => 'isarchived',
+        ],[
+            'value' => $archive
+        ]);
+
+        return back();
+    }
+
+    public function archive(Request $request){
+        if($request->has('section')){
+
+            $users = User::whereHas('roles',function($q){
+                $q->where('display_name','=','student');
+            });
+
+            if( $request->has('section') && $request->section!='All Sections' ){
+                $section = $request->section;
+                $users = $users->whereHas('infos', function ($query) use ($section){
+                    $query->where('value', 'like', $section);
+                });
+            }
+
+            $users->chunk(100, function ($users) {
+                foreach ($users as $user) {
+                    UserInfo::updateOrCreate([
+                        'user_id' => $user->id,
+                        'key' => 'isarchived',
+                    ],[
+                        'value' => true
+                    ]);
+                }
+            });
+
+            return back();
+
+        }
     }
 
 
